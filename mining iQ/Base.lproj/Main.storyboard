@@ -2113,7 +2113,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6gy-To-JmB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6gy-To-JmB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2253,8 +2253,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Nep-Ob-snY"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="11"/>
+                                                    <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOLLOW UP DATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ip5-Gw-gsq">
@@ -2262,8 +2262,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="tJa-Fr-SbR"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="11"/>
+                                                    <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vO-AK-rB9">
@@ -2271,8 +2271,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="u6m-AD-UX6"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="11"/>
+                                                    <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2483,7 +2483,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="footerView" destination="Ek1-3A-T9f" id="P0Z-Il-Ald"/>
                         <outlet property="openMenu" destination="oDy-IQ-cdP" id="g6e-th-kxL"/>
+                        <outlet property="topHeaderView" destination="r7y-Xr-0XE" id="9Jl-nS-GJC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nkh-cy-9EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
