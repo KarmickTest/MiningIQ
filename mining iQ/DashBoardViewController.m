@@ -252,14 +252,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
     dashBoardCell *cell =[tableView dequeueReusableCellWithIdentifier:@"dashBoardCell"];
     cell.titleLbl.text = [nameArr objectAtIndex:indexPath.row];
     cell.imgView.image = [UIImage imageNamed:[imgArr objectAtIndex:indexPath.row]];
     
     cell.backView.layer.cornerRadius = 1.0f;
     cell.backView.clipsToBounds = YES;
+    cell.backView.backgroundColor = [UIColor colorWithRed:80.0f/255.0f green:80.0f/255.0f blue:80.0f/255.0f alpha:1];
     
     return cell;
 }
@@ -268,7 +267,6 @@
 {
     return 85.0f;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -318,13 +316,29 @@
         
         
     }
+}
 
-
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Add your Colour.
     
+    dashBoardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
+    [self setCellColor:[UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1] ForCell:cell];
     
 }
 
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Reset Colour.
+    
+    dashBoardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    [self setCellColor:[UIColor colorWithRed:80.0f/255.0f green:80.0f/255.0f blue:80.0f/255.0f alpha:1] ForCell:cell];
+}
+
+- (void)setCellColor:(UIColor *)color ForCell:(dashBoardCell *)cellDashboard {
+    cellDashboard.backView.backgroundColor = color;
+}
 
 
 

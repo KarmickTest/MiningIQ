@@ -220,7 +220,7 @@
                                                             <rect key="frame" x="20" y="16" width="43" height="43"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.30980392156862746" green="0.30588235294117649" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="86q-GX-H3l" secondAttribute="trailing" constant="13" id="2ku-xT-v0B"/>
                                                         <constraint firstItem="w5z-S9-Nij" firstAttribute="top" secondItem="Ear-ef-rE3" secondAttribute="top" id="8e6-0d-QdG"/>
@@ -238,6 +238,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="Ear-ef-rE3" firstAttribute="trailing" secondItem="CA3-R7-gvE" secondAttribute="trailingMargin" constant="-2" id="7nV-oh-rog"/>
                                                 <constraint firstItem="Ear-ef-rE3" firstAttribute="top" secondItem="CA3-R7-gvE" secondAttribute="topMargin" constant="-8" id="LGE-le-Pmp"/>
