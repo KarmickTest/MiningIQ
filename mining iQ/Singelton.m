@@ -15,6 +15,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
  static Singelton* sharedInstance = nil;
+
 +(Singelton *)getInstance {
     @synchronized(self)
     {
@@ -23,6 +24,7 @@
             }
     return(sharedInstance);
 }
+
 - (id)init
 {
     self = [super init];
@@ -33,6 +35,7 @@
     }
     return self;
 }
+
 - (NSManagedObjectContext *)managedObjectContext {
     
     NSManagedObjectContext *context = nil;
@@ -43,6 +46,7 @@
     return context;
     
 }
+
 -(NSString *)demoMethod:(NSString*)outputString{
 
     NSString *splitstring;
@@ -51,6 +55,7 @@
     
     return [NSString stringWithFormat:@"%@",[listItems objectAtIndex:0]];
 }
+
 -(NSMutableArray *)dataFromCoredata:(NSString *)entityName{
     
     NSMutableArray *setVal = [[NSMutableArray alloc] init];
@@ -61,8 +66,6 @@
     return setVal;
 }
 -(void)jsonparse:(void(^)(NSDictionary* result))handler andString:(NSString*) yourString{
-    
-  
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:yourString]];
     
@@ -123,6 +126,7 @@
                                                        }];
     [dataTask resume];
 }
+
 -(void)ButtonEdgeChange:(UIButton *)button spacing:(float)space{
     
     // the space between the image and text
@@ -142,6 +146,7 @@
 
 
 }
+
 -(void)saveDefaults:(NSDictionary *)result{
 
    
@@ -157,19 +162,23 @@
     [defaults synchronize];
     
 }
+
 -(NSString *)getLoginId{
     
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"user_id"];
 
 }
+
 -(NSString *)getDeviceToken{
     
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"deviceToken"];
     
 }
+
 -(void)saveDefaultsGuest{
+    
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     [defaults setObject:@"demoId" forKey:@"user_id"];
     [defaults setObject:@"demoFirstName" forKey:@"first_name"];
@@ -178,17 +187,20 @@
     [defaults synchronize];
     
 }
+
 -(BOOL)isDeviceLocalizationArabic
 {
     NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
     return [language rangeOfString:@"ar"].location != NSNotFound;
 }
+
 -(NSString *)deviceID
 {
     UIDevice *device = [UIDevice currentDevice];
     NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
     return currentDeviceId;
 }
+
 -(BOOL)isNumeric:(NSString*)inputString
 {
     BOOL isValid = NO;
@@ -197,6 +209,7 @@
     isValid = [alphaNumbersSet isSupersetOfSet:stringSet];//returns TRUE if numeric, else returns FALSE
     return isValid;
 }
+
 - (BOOL)isValidPassword:(NSString*)password
 {
     return  password.length>5?TRUE:FALSE;
@@ -204,22 +217,23 @@
 
 -(BOOL)IsBlank:(NSString *)str
 {
-    if([str isEqual:[NSNull null]]) return TRUE;
+    if([str isEqual:[NSNull null]])
+        return TRUE;
     return ([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])?TRUE:FALSE;
 }
+
 -(NSString *)trim:(NSString *)str
 {
-    
     NSString *trimmedString = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     return trimmedString;
-    
 }
-- (BOOL)validateEmailWithString:(NSString*)email
+
+- (BOOL)validateEmailWithString:(NSString*)eMail
 {
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
+    return [emailTest evaluateWithObject:eMail];
 }
 
 @end

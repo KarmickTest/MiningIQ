@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@interface Singelton : NSObject<NSURLSessionDelegate,NSURLSessionDataDelegate,NSURLSessionTaskDelegate>{
+
+@interface Singelton : NSObject <NSURLSessionDelegate,NSURLSessionDataDelegate,NSURLSessionTaskDelegate>{
 
     NSString *firstname;
     NSString *lastname;
     NSString *userid;
-    NSString *usertype;
-   
+    NSString *usertype;   
 }
+
 +(Singelton *)getInstance;
 -(NSString *)demoMethod:(NSString*)outputString;
 -(void)jsonparse:(void(^)(NSDictionary* result))handler andString:(NSString*) yourString;

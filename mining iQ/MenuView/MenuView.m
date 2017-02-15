@@ -51,7 +51,7 @@
     
     tblVw_Menu=[[UITableView alloc] initWithFrame:CGRectMake(0.0f,0.0f, self.frame.size.width*0.7, self.frame.size.height)];
     [tblVw_Menu setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [tblVw_Menu setBackgroundColor:[UIColor clearColor]];
+    [tblVw_Menu setBackgroundColor:[UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1]];
     tblVw_Menu.showsHorizontalScrollIndicator=NO;
     tblVw_Menu.showsVerticalScrollIndicator=NO;
     [self addSubview:vw_TableView];
@@ -68,7 +68,7 @@
 {
     if(indexPath.row==[arrMenuList indexOfObject:[arrMenuList firstObject]])
     {
-        return 80.0f;
+        return 60.0f;
     }
     else
     {
@@ -108,10 +108,12 @@
         cellList = (MenuListCell*)[[[NSBundle mainBundle]loadNibNamed:@"MenuListCell" owner:self options:0]objectAtIndex:0];
         [cellList setSelectionStyle:UITableViewCellSelectionStyleNone];
         cellList.lbl_MenuList.text = [[arrMenuList objectAtIndex:indexPath.row] valueForKey:@"menuName"];//[arrMenucontent objectAtIndex:indexPath.row-1];
-    cellList.lbl_MenuList.font = [UIFont fontWithName:@"OpenSans-Semibold" size:12];
-    cellList.lbl_MenuList.textColor=[UIColor blackColor];
+        cellList.lbl_MenuList.font = [UIFont fontWithName:@"OpenSans-Semibold" size:12];
+        cellList.lbl_MenuList.textColor=[UIColor blackColor];
         cellList.imageView.image = [UIImage imageNamed:[[arrMenuList objectAtIndex:indexPath.row] valueForKey:@"menuImage"]];//[UIImage imageNamed:[arrMenuListImage objectAtIndex:indexPath.row-1]];
 //        cellList.backgroundColor=[UIColor clearColor];
+    
+        cellList.contentView.backgroundColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1];
         return cellList;
     
 }
@@ -124,6 +126,29 @@
         [DelegateMenu TaponcellWithIndex:indexPath.row WithTitle:[arrMenuList objectAtIndex:indexPath.row]];
     }
 }
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Add your Colour.
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    [self setCellColor:[UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1] ForCell:cell];
+    
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Reset Colour.
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    [self setCellColor:[UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1] ForCell:cell];
+}
+
+- (void)setCellColor:(UIColor *)color ForCell:(UITableViewCell *)cellDashboard {
+    cellDashboard.contentView.backgroundColor = color;
+}
+
 
 //-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 //{

@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -17,7 +18,63 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0){
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if( !error ){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
+    }
+    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
     return YES;
+}
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSString *Tokenstr = [NSString stringWithFormat:@"%@",deviceToken];
+    Tokenstr=[Tokenstr stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    Tokenstr=[Tokenstr stringByReplacingOccurrencesOfString:@">" withString:@""];
+    Tokenstr=[Tokenstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:Tokenstr forKey:@"deviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"deviceToken: %@",Tokenstr);
+}
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+//    NSMutableString *stringUserInfo = [[NSMutableString alloc] init];
+//    for (NSString *aKey in userInfo.allKeys)
+//        [stringUserInfo appendFormat:@"%@ : %@\n",aKey,[userInfo valueForKey:aKey]];
+//    
+//    UIAlertView *DeviceTokenAlert=[[UIAlertView alloc]initWithTitle:stringUserInfo message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//    
+//    [DeviceTokenAlert show];
+//
+//    
+//    if ( application.applicationState == UIApplicationStateActive )
+//    {
+//        // app was already in the foreground
+//        
+//        NSLog(@"state active");
+//    }
+//    else
+//    {
+//    
+//    }
 }
 
 

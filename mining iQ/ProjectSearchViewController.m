@@ -95,7 +95,10 @@
     [biMinaral setValue:@"downArrow" forKey:@"imageName"];
     
     
-    contentArr = [[NSMutableArray alloc] initWithObjects:projectName,countries,regions,country,phase,completedProjectsAfter,completedProjectsBefore,projectValue,plant,type,status,minaral,biMinaral, nil];
+//    contentArr = [[NSMutableArray alloc] initWithObjects:projectName,countries,regions,country,phase,completedProjectsAfter,completedProjectsBefore,projectValue,plant,type,status,minaral,biMinaral, nil];
+    
+    
+    contentArr = [[NSMutableArray alloc] initWithObjects:projectName,countries,minaral,biMinaral,plant,type,country,phase,status,regions,completedProjectsAfter,completedProjectsBefore,projectValue, nil];
     
     self.searchBtn = [self roundBtnRadious:self.searchBtn radius:2];
     self.searchMineOwnersView = [self roundViewRadious:self.searchMineOwnersView radius:2];
@@ -200,7 +203,7 @@
         
         return textFieldCell;
     }
-    else if (indexPath.row == 7)
+    else if (indexPath.row == [contentArr count] -1)
     {
         multipleDropDownCell = (MultiPleDropDownTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MultiPleDropDownTableViewCell"];
         
@@ -280,7 +283,6 @@
 {
     [self.navigationController presentViewController:RemindersView animated:YES completion:NULL];
 }
-
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     

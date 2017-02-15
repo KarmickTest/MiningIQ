@@ -14,6 +14,8 @@
 #import "NewsFeedViewController.h"
 #import "MenuView.h"
 #import "Global_Header.h"
+#import "ViewController.h"
+
 
 #define FULLHEIGHT [UIScreen mainScreen].bounds.size.height
 #define FULLWIDTH  [UIScreen mainScreen].bounds.size.width
@@ -23,9 +25,8 @@
 
 @interface DashBoardViewController ()<UITableViewDelegate, UITableViewDataSource,MenuViewDelegate>{
 
-    NSArray *nameArr;
-    NSArray *imgArr;
-     MenuView *objMenuView;
+    NSMutableArray *nameArr;
+    MenuView *objMenuView;
 }
 
 @end
@@ -41,9 +42,39 @@
 //    self.menu.delegate   = self;
 //    [self.menu addSwipeGestureRecognition:self.view];
     
+    NSMutableDictionary *totalPhases = [[NSMutableDictionary alloc] init];
+    [totalPhases setObject:@"Total Phases" forKey:@"headingName"];
+    [totalPhases setObject:@"totalPhase" forKey:@"imageName"];
     
-    nameArr = [NSArray arrayWithObjects:@"Total Phases",@"New Projects",@"Recently Updated",@"Project Search",@"My Reminders",@"News Feed",nil];
-    imgArr = [NSArray arrayWithObjects:@"totalPhase",@"newproject",@"recentlyUpdate",@"projectSearch",@"myRimdrs", @"newsfeed",nil];
+    NSMutableDictionary *recentlyUpdated = [[NSMutableDictionary alloc] init];
+    [recentlyUpdated setObject:@"Recently Updated" forKey:@"headingName"];
+    [recentlyUpdated setObject:@"recentlyUpdate" forKey:@"imageName"];
+    
+    NSMutableDictionary *newProject = [[NSMutableDictionary alloc] init];
+    [newProject setObject:@"New Projects" forKey:@"headingName"];
+    [newProject setObject:@"newproject" forKey:@"imageName"];
+    
+    NSMutableDictionary *myRimdrs = [[NSMutableDictionary alloc] init];
+    [myRimdrs setObject:@"My Reminders" forKey:@"headingName"];
+    [myRimdrs setObject:@"myRimdrs" forKey:@"imageName"];
+    
+    NSMutableDictionary *projectsOfInterest = [[NSMutableDictionary alloc] init];
+    [projectsOfInterest setObject:@"Projects of Interest" forKey:@"headingName"];
+    [projectsOfInterest setObject:@"myRimdrs" forKey:@"imageName"];
+    
+    NSMutableDictionary *projectSearch = [[NSMutableDictionary alloc] init];
+    [projectSearch setObject:@"Project Search" forKey:@"headingName"];
+    [projectSearch setObject:@"projectSearch" forKey:@"imageName"];
+    
+    NSMutableDictionary *newsFeed = [[NSMutableDictionary alloc] init];
+    [newsFeed setObject:@"News Feed" forKey:@"headingName"];
+    [newsFeed setObject:@"newsfeed" forKey:@"imageName"];
+    
+//    nameArr = [NSArray arrayWithObjects:@"Total Phases",@"Recently Updated",@"New Projects",@"My Reminders",@"Projects of Interest",@"Project Search",@"News Feed",nil];
+//    imgArr = [NSArray arrayWithObjects:@"totalPhase",@"recentlyUpdate",@"newproject",@"myRimdrs",@"myRimdrs",@"projectSearch", @"newsfeed",nil];
+    
+    nameArr = [[NSMutableArray alloc] initWithObjects:totalPhases,recentlyUpdated,newProject,myRimdrs,projectsOfInterest,projectSearch,newsFeed, nil];
+    
     objMenuView = [[MenuView alloc] initWithFrame:CGRectMake(-FULLWIDTH, 0, FULLWIDTH, FULLHEIGHT+MENUHEADERHEIGHT)];
     objMenuView.DelegateMenu = self;
     objMenuView.isMenuopen = FALSE;
@@ -61,44 +92,87 @@
 -(void)TaponcellWithIndex:(NSInteger)Index WithTitle:(NSString *)Title{
     if (Index==0) {
         //[objMenuView removeFromSuperview];
-        ProjectSearchViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectSearchViewController"];
-        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-
+    
     }
     else if (Index==1){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
+        
+        ProjectSearchViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectSearchViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
        
     }
     else if (Index==2){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
           }
     else if (Index==3){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
      
     }
     else if (Index==4){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
        
         
     }
     else if (Index==5){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
      
         
     }
     else if (Index==6){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
         
         
     }
     else if (Index==7){
-        [objMenuView removeFromSuperview];
+//        [objMenuView removeFromSuperview];
        
     }
     else if (Index==8){
-        [objMenuView removeFromSuperview];
-     
+//        [objMenuView removeFromSuperview];
+        
+    }
+    else if (Index==9)
+    {
+//        [self drawerMenuOpenClose];
+        
+        CGRect framescreen=objMenuView.frame;
+        if (objMenuView.isMenuopen)
+        {
+            framescreen.origin.x=-(FULLWIDTH);
+        }
+        else
+        {
+            framescreen.origin.x=0;
+        }
+        
+        [UIView animateWithDuration:.2f animations:^{
+            [objMenuView setFrame:framescreen];
+        }
+                         completion:^(BOOL finish)
+         {
+             if (objMenuView.isMenuopen)
+             {
+                 objMenuView.isMenuopen=FALSE;
+             }
+             else
+             {
+                 objMenuView.isMenuopen=TRUE;
+             }
+             
+             ViewController *loginVC=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ViewController"];
+             
+             CATransition* transition = [CATransition animation];
+             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+             transition.duration = 0.7f;
+             //        transition.subtype =
+             transition.type =  kCATransitionFade;
+             [self.navigationController.view.layer removeAllAnimations];
+             [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+             
+             [self.navigationController pushViewController:loginVC animated:NO];
+         }];
+        
+        
     }
     else{
         [self drawerMenuOpenClose];
@@ -251,14 +325,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return nameArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     dashBoardCell *cell =[tableView dequeueReusableCellWithIdentifier:@"dashBoardCell"];
-    cell.titleLbl.text = [nameArr objectAtIndex:indexPath.row];
-    cell.imgView.image = [UIImage imageNamed:[imgArr objectAtIndex:indexPath.row]];
+    cell.titleLbl.text = [[nameArr objectAtIndex:indexPath.row] valueForKey:@"headingName"];
+    cell.imgView.image = [UIImage imageNamed:[[nameArr objectAtIndex:indexPath.row] valueForKey:@"imageName"]];
     
     cell.backView.layer.cornerRadius = 1.0f;
     cell.backView.clipsToBounds = YES;
@@ -277,48 +351,45 @@
     
     NSLog(@"%ld",(long)indexPath.row);
     
-    if(indexPath.row == 1){
-        
-        NewProjectsViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewProjectsViewController"];
-        [self.navigationController pushViewController:dashBoard animated:YES];
-        
-    }
-    
-    else if (indexPath.row == 2){
-        
-        RecentlyUpdatedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RecentlyUpdatedViewController"];
-        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-        
-    }
-
-    else if (indexPath.row == 3){
-        
-        ProjectSearchViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectSearchViewController"];
-        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-        
-    }
-    else if (indexPath.row == 4){
-        
-        MyRemindersViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MyRemindersViewController"];
-        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-        
-    }
-    else if (indexPath.row == 5){
-        
-        NewsFeedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsFeedViewController"];
-        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-        
-    }
-    else if (indexPath.row == 0){
+    if (indexPath.row == 0){
         
         ProjectPhaseViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectPhaseViewController"];
         [self.navigationController pushViewController:RemindersView animated:YES];
         
         
+    }
+    else if(indexPath.row == 1){
+        
+        RecentlyUpdatedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RecentlyUpdatedViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+    }
+    
+    else if (indexPath.row == 2){
+        
+        NewProjectsViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewProjectsViewController"];
+        [self.navigationController pushViewController:dashBoard animated:YES];
+    }
+
+    else if (indexPath.row == 3){
+        
+        MyRemindersViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MyRemindersViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+    }
+    else if (indexPath.row == 4){
+        
+        
+        
+        
+    }
+    else if (indexPath.row == 5){
+        
+        ProjectSearchViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectSearchViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+    }
+    else if (indexPath.row == 6){
+        
+        NewsFeedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsFeedViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
     }
 }
 
