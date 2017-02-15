@@ -38,9 +38,16 @@
     self.passwordTxt.leftViewMode = UITextFieldViewModeAlways;
     self.passwordTxt.delegate=self;
     
+    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
+    self.passwordTxt.rightView = paddingView2;
+    self.passwordTxt.rightViewMode = UITextFieldViewModeAlways;
+    
     self.loginBtn = [self roundRadious:self.loginBtn radius:2];
     self.registerBtn = [self roundRadious:self.registerBtn radius:2];
     self.forgotPwdBtn = [self roundRadious:self.forgotPwdBtn radius:2];
+    
+    self.userNameTxt = [self roundRadiousTxt:self.userNameTxt radius:2];
+    self.passwordTxt = [self roundRadiousTxt:self.passwordTxt radius:2];
 }
 
 -(UIButton *)roundRadious:(UIButton *)button radius:(NSInteger)radius
