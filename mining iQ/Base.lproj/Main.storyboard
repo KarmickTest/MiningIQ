@@ -40,7 +40,7 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="PjN-eU-LH2"/>
                                 </connections>
@@ -53,7 +53,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Q5W-bf-xK4"/>
                                 </connections>
@@ -64,7 +64,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="05Z-X9-05w"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -73,60 +73,77 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTf-bV-2PZ">
-                                <rect key="frame" x="77" y="442" width="165" height="30"/>
+                                <rect key="frame" x="78" y="443" width="165" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.67843137254901964" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uO5-LU-vxF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Forgot Password">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4K0-Hs-VA1">
-                                <rect key="frame" x="77" y="491" width="165" height="30"/>
+                                <rect key="frame" x="78" y="490" width="165" height="30"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.396078431372549" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="q4w-YD-PjP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Register">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6N-yX-43H">
+                                <rect key="frame" x="259" y="296" width="35" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="sxc-99-fSS"/>
+                                    <constraint firstAttribute="height" constant="41" id="whZ-bQ-km3"/>
+                                </constraints>
+                                <state key="normal" image="Invisible-25"/>
+                                <connections>
+                                    <action selector="showPwdAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iTP-Pz-2jZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="hCp-Fe-lkm" secondAttribute="trailing" constant="77" id="4EN-kc-d9w"/>
                             <constraint firstItem="1a9-Fa-3fm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4vC-iV-KEP"/>
-                            <constraint firstItem="4K0-Hs-VA1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="77" id="Eo7-yj-WyY"/>
-                            <constraint firstAttribute="trailing" secondItem="4K0-Hs-VA1" secondAttribute="trailing" constant="78" id="FDB-4t-nhr"/>
+                            <constraint firstItem="B6N-yX-43H" firstAttribute="top" secondItem="ZMb-2b-4lP" secondAttribute="bottom" constant="8" id="Bdv-fJ-SKx"/>
+                            <constraint firstItem="4K0-Hs-VA1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="78" id="Eo7-yj-WyY"/>
+                            <constraint firstAttribute="trailing" secondItem="4K0-Hs-VA1" secondAttribute="trailing" constant="77" id="FDB-4t-nhr"/>
                             <constraint firstItem="ZMb-2b-4lP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="26" id="FQp-9D-maT"/>
                             <constraint firstItem="1a9-Fa-3fm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Hep-LC-xEy"/>
-                            <constraint firstAttribute="trailing" secondItem="xTf-bV-2PZ" secondAttribute="trailing" constant="78" id="Pwp-dm-9IC"/>
+                            <constraint firstAttribute="trailing" secondItem="xTf-bV-2PZ" secondAttribute="trailing" constant="77" id="Pwp-dm-9IC"/>
                             <constraint firstItem="ZMb-2b-4lP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QsS-2W-aXa"/>
                             <constraint firstAttribute="trailing" secondItem="XAn-EG-v0F" secondAttribute="trailing" constant="26" id="QxC-IO-u7a"/>
                             <constraint firstItem="XAn-EG-v0F" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="26" id="Wyc-TK-Kyx"/>
                             <constraint firstItem="ZMb-2b-4lP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="247" id="Yai-RE-wJW"/>
-                            <constraint firstItem="4K0-Hs-VA1" firstAttribute="top" secondItem="xTf-bV-2PZ" secondAttribute="bottom" constant="19" id="eDp-Ae-fPN"/>
-                            <constraint firstItem="xTf-bV-2PZ" firstAttribute="top" secondItem="hCp-Fe-lkm" secondAttribute="bottom" constant="16" id="k0Z-w4-N2U"/>
-                            <constraint firstItem="xTf-bV-2PZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="77" id="lTM-l8-cRp"/>
+                            <constraint firstItem="4K0-Hs-VA1" firstAttribute="top" secondItem="xTf-bV-2PZ" secondAttribute="bottom" constant="17" id="eDp-Ae-fPN"/>
+                            <constraint firstItem="xTf-bV-2PZ" firstAttribute="top" secondItem="hCp-Fe-lkm" secondAttribute="bottom" constant="17" id="k0Z-w4-N2U"/>
+                            <constraint firstItem="xTf-bV-2PZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="78" id="lTM-l8-cRp"/>
                             <constraint firstItem="hCp-Fe-lkm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="78" id="rMt-Ov-JtT"/>
                             <constraint firstAttribute="trailing" secondItem="1a9-Fa-3fm" secondAttribute="trailing" id="rSe-f5-ntP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1a9-Fa-3fm" secondAttribute="bottom" id="rrQ-ZY-47R"/>
                             <constraint firstItem="XAn-EG-v0F" firstAttribute="top" secondItem="ZMb-2b-4lP" secondAttribute="bottom" constant="8" id="sLt-L1-Jaj"/>
                             <constraint firstItem="hCp-Fe-lkm" firstAttribute="top" secondItem="XAn-EG-v0F" secondAttribute="bottom" constant="59" id="vJ9-se-qar"/>
+                            <constraint firstAttribute="trailing" secondItem="B6N-yX-43H" secondAttribute="trailing" constant="26" id="y7r-k7-kyu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Flr-Wu-77P"/>
                     <connections>
-                        <outlet property="passwordTxt" destination="XAn-EG-v0F" id="D2A-m4-3Re"/>
-                        <outlet property="userNameTxt" destination="ZMb-2b-4lP" id="wHu-5c-ErG"/>
+                        <outlet property="forgotPwdBtn" destination="xTf-bV-2PZ" id="QaC-wA-Kes"/>
+                        <outlet property="loginBtn" destination="hCp-Fe-lkm" id="Seq-WH-i9v"/>
+                        <outlet property="passwordTxt" destination="XAn-EG-v0F" id="gaO-Yb-ulQ"/>
+                        <outlet property="registerBtn" destination="4K0-Hs-VA1" id="974-8e-JM1"/>
+                        <outlet property="showPwdBtn" destination="B6N-yX-43H" id="Rcn-7F-sP6"/>
+                        <outlet property="userNameTxt" destination="ZMb-2b-4lP" id="fDe-zF-Wkc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="120.08995502248877"/>
+            <point key="canvasLocation" x="1051.875" y="119.36619718309859"/>
         </scene>
         <!--Dash Board View Controller-->
         <scene sceneID="4rx-rV-SDj">
@@ -2838,6 +2855,7 @@
     </scenes>
     <resources>
         <image name="Back" width="30" height="30"/>
+        <image name="Invisible-25" width="25" height="25"/>
         <image name="bgGrnd" width="320" height="568"/>
         <image name="close" width="30" height="30"/>
         <image name="deleteforeverimage" width="16" height="16"/>

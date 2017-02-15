@@ -26,7 +26,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
     
     self.topHeaderView = [self roundCornersOnView:self.topHeaderView onTopLeft:YES topRight:YES bottomLeft:NO bottomRight:NO radius:4];
     
