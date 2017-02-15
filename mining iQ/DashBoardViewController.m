@@ -61,6 +61,10 @@
 -(void)TaponcellWithIndex:(NSInteger)Index WithTitle:(NSString *)Title{
     if (Index==0) {
         //[objMenuView removeFromSuperview];
+        ProjectSearchViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectSearchViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+        
+
     }
     else if (Index==1){
         [objMenuView removeFromSuperview];
@@ -95,7 +99,7 @@
     else if (Index==8){
         [objMenuView removeFromSuperview];
      
-           }
+    }
     else{
         [self drawerMenuOpenClose];
     }
