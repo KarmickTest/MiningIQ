@@ -55,13 +55,13 @@
     
     if (showPwdBool == true)
     {
-        [self.showPwdBtn setImage:[UIImage imageNamed:@"Visible-25"] forState:UIControlStateNormal];
+        [self.showPwdBtn setImage:[UIImage imageNamed:@"Invisible-25"] forState:UIControlStateNormal];
         self.passwordTxt.secureTextEntry = NO;
         showPwdBool = false;
     }
     else if (showPwdBool == false)
     {
-        [self.showPwdBtn setImage:[UIImage imageNamed:@"Invisible-25"] forState:UIControlStateNormal];
+        [self.showPwdBtn setImage:[UIImage imageNamed:@"Visible-25"] forState:UIControlStateNormal];
         self.passwordTxt.secureTextEntry = YES;
         showPwdBool = true;
     }
