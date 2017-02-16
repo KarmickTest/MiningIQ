@@ -7,8 +7,15 @@
 //
 
 #import "ProjectPhaseViewController.h"
+#import "Singelton.h"
+#import "DefineHeader.pch"
 
-@interface ProjectPhaseViewController ()
+@interface ProjectPhaseViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    NSMutableArray *projectPhaseArr;
+    UIView *backgroundView, *spinnerView;
+    UIActivityIndicatorView *spinner;
+}
 
 @end
 
@@ -17,22 +24,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    /////////// for loader view
+    
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    
+    [spinner startAnimating];
+    
+    [spinnerView addSubview:spinner];
+    
+//    backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//    backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.2];
+//    [backgroundView addSubview:spinnerView];
+    
+    [self.view addSubview:spinnerView];
+    spinnerView.hidden = YES;
+    
+    //////////
+    
+    [self getttingProjectPhase];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)getttingProjectPhase
+{
+    spinnerView.hidden = NO;
+    
+    NSString *strCategoryApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,ProjectPhase];
+    
+    projectPhaseArr = [[NSMutableArray alloc] init];
+    
+    [[Singelton getInstance] jsonparse:^(NSDictionary* testResult){
+    
+//        NSLog(@"Category====%@",testResult);
+    
+        spinnerView.hidden = YES;
+        
+        if ([[testResult valueForKey:@"success"] boolValue]==1)
+        {
+            projectPhaseArr = [testResult valueForKey:@"details"];
+                
+            self.tableView.delegate = self;
+            self.tableView.dataSource = self;
+            [self.tableView reloadData];
+                
+        }
+        else
+        {
+            
+        }
+    } andString:strCategoryApi];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)btnBack:(id)sender {
     [self.navigationController popViewControllerAnimated:NO];
@@ -52,13 +100,17 @@
         cell.cellBackView.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1];
     }
     
+    cell.phaseNameLbl.text = [[projectPhaseArr objectAtIndex:indexPath.row] valueForKey:@"phase_name"];
+    cell.phaseCountLbl.text = [NSString stringWithFormat:@"%@",[[projectPhaseArr objectAtIndex:indexPath.row] valueForKey:@"total_projects"]];
+    
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return projectPhaseArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,7 +127,20 @@
 //}
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 @end

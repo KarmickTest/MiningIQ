@@ -15,6 +15,7 @@
     ProjectPhaseCell *cell;
 }
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)btnBack:(id)sender;
 

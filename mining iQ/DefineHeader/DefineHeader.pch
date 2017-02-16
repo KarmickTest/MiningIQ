@@ -13,6 +13,9 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #define App_Domain_Url @"http://karmickdev.com/miningiq/Api/"
+
+
 #define Login @"login/?"
+#define ProjectPhase @"PhasewiseProjectCount"
 
 #endif /* DefineHeader_pch */

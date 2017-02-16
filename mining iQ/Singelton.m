@@ -65,6 +65,7 @@
     
     return setVal;
 }
+
 -(void)jsonparse:(void(^)(NSDictionary* result))handler andString:(NSString*) yourString{
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:yourString]];
@@ -76,13 +77,17 @@
     
     //create the task
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            handler(json) ;
+        if (error == nil)
+        {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
-        });
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(json) ;
+                
+            });
+        }
         
     }];
     [task resume];

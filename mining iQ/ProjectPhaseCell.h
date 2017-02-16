@@ -12,5 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *cellBackView;
 
+@property (weak, nonatomic) IBOutlet UILabel *phaseNameLbl;
+@property (weak, nonatomic) IBOutlet UILabel *phaseCountLbl;
 
 @end

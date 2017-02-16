@@ -15,6 +15,7 @@
 #import "MenuView.h"
 #import "Global_Header.h"
 #import "ViewController.h"
+#import "ProjectofInterestViewController.h"
 
 
 #define FULLHEIGHT [UIScreen mainScreen].bounds.size.height
@@ -377,7 +378,8 @@
     }
     else if (indexPath.row == 4){
         
-        
+        ProjectofInterestViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectofInterestViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
         
         
     }

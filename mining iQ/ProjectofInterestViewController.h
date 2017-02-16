@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ProjectofInterestViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITableView *Project_TableView;
 - (IBAction)Back_btn:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @end
