@@ -40,10 +40,6 @@
     
     [spinnerView addSubview:spinner];
     
-//    backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-//    backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.2];
-//    [backgroundView addSubview:spinnerView];
-    
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
     
@@ -51,10 +47,14 @@
     
     
 }
+
 -(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
 
     [self getttingProjectPhase];
 }
+
 -(void)getttingProjectPhase
 {
     spinnerView.hidden = NO;

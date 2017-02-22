@@ -18,5 +18,6 @@
 #define Login @"login/?"
 #define NewProject @"newProjects/?"
 #define ProjectPhase @"PhasewiseProjectCount"
+#define NewsFeed @"newsfeed"
 
 #endif /* DefineHeader_pch */

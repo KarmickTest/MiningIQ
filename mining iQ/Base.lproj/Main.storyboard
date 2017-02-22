@@ -355,7 +355,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RLM-f5-WC0">
-                                <rect key="frame" x="0.0" y="60" width="320" height="428"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -420,51 +420,21 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="oUy-l8-Dys" id="QL3-Po-SBA"/>
-                                    <outlet property="delegate" destination="oUy-l8-Dys" id="Uzt-0d-q7I"/>
-                                </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqA-ZH-QRX">
-                                <rect key="frame" x="0.0" y="488" width="320" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fh-tZ-5r9">
-                                        <rect key="frame" x="210" y="23" width="100" height="34"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.32638984630000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="34" id="RY2-C3-yYF"/>
-                                            <constraint firstAttribute="width" constant="100" id="k7U-zd-qDP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                        <state key="normal" title="View More">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7fh-tZ-5r9" secondAttribute="bottom" constant="23" id="W7V-Ls-iTn"/>
-                                    <constraint firstAttribute="trailing" secondItem="7fh-tZ-5r9" secondAttribute="trailing" constant="10" id="lGd-5x-e2b"/>
-                                    <constraint firstAttribute="height" constant="80" id="xZ8-f5-l8M"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RLM-f5-WC0" firstAttribute="top" secondItem="EGn-x7-lTp" secondAttribute="bottom" id="4bT-IP-UzZ"/>
-                            <constraint firstItem="wvQ-u8-AhQ" firstAttribute="top" secondItem="RLM-f5-WC0" secondAttribute="bottom" constant="80" id="9UW-jq-ery"/>
-                            <constraint firstItem="IqA-ZH-QRX" firstAttribute="bottom" secondItem="wvQ-u8-AhQ" secondAttribute="top" id="A2H-PC-G1p"/>
+                            <constraint firstItem="wvQ-u8-AhQ" firstAttribute="top" secondItem="RLM-f5-WC0" secondAttribute="bottom" id="9UW-jq-ery"/>
                             <constraint firstAttribute="trailing" secondItem="EGn-x7-lTp" secondAttribute="trailing" id="ARK-qx-3zU"/>
                             <constraint firstItem="EGn-x7-lTp" firstAttribute="top" secondItem="AXc-Kq-G1t" secondAttribute="top" id="DOk-TU-MRL"/>
                             <constraint firstItem="EGn-x7-lTp" firstAttribute="leading" secondItem="AXc-Kq-G1t" secondAttribute="leading" id="IFw-MZ-esh"/>
-                            <constraint firstItem="IqA-ZH-QRX" firstAttribute="leading" secondItem="RLM-f5-WC0" secondAttribute="leading" id="eYt-7p-7WF"/>
-                            <constraint firstItem="IqA-ZH-QRX" firstAttribute="trailing" secondItem="RLM-f5-WC0" secondAttribute="trailing" id="fnb-LJ-Vlb"/>
                             <constraint firstItem="RLM-f5-WC0" firstAttribute="leading" secondItem="AXc-Kq-G1t" secondAttribute="leading" id="hPy-uo-ZXs"/>
                             <constraint firstAttribute="trailing" secondItem="RLM-f5-WC0" secondAttribute="trailing" id="kYs-YD-Ji0"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="RLM-f5-WC0" id="QRm-BB-alu"/>
+                        <outlet property="newsListTableView" destination="RLM-f5-WC0" id="8Tf-wy-TC9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ogW-JO-uWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
