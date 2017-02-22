@@ -16,6 +16,7 @@
 
 
 #define Login @"login/?"
+#define NewProject @"newProjects/?"
 #define ProjectPhase @"PhasewiseProjectCount"
 
 #endif /* DefineHeader_pch */

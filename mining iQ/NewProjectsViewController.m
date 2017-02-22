@@ -8,8 +8,17 @@
 
 #import "NewProjectsViewController.h"
 #import "ProjectDetailViewController.h"
+#import "Singelton.h"
+#import "DefineHeader.pch"
+@interface NewProjectsViewController ()<UITableViewDelegate, UITableViewDataSource>{
 
-@interface NewProjectsViewController ()<UITableViewDelegate, UITableViewDataSource>
+    NSString *start;
+    NSString *limit;
+    UIView *spinnerView;
+    UIActivityIndicatorView *spinner;
+    NSMutableArray *newProjectListArray;
+
+}
 
 
 @end
@@ -19,7 +28,61 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    start = @"0";
+    limit = @"8";
+    newProjectListArray = [[NSMutableArray alloc] init];
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    [spinner startAnimating];
+    
+    [spinnerView addSubview:spinner];
+    
+    [self.view addSubview:spinnerView];
+    spinnerView.hidden = YES;
+    
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    
+    [self getAllProjectListing:start limitVal:limit];
+}
+-(void)getAllProjectListing:(NSString *)startVal limitVal:(NSString *)limitVal{
+
+
+    spinnerView.hidden = NO;
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=%@&num_records=%@",startVal,limitVal];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,NewProject];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            newProjectListArray = [testResult objectForKey:@"details"];
+            [self.tableView reloadData];
+            NSLog(@"url is : %lu",(unsigned long)newProjectListArray.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
+
+
 
 - (IBAction)backTapped:(id)sender {
     
@@ -39,6 +102,8 @@
     {
         cell.cellBackView.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1];
     }
+    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created_date"];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -46,7 +111,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return newProjectListArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

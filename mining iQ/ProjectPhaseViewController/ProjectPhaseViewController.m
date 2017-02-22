@@ -49,9 +49,12 @@
     
     //////////
     
+    
+}
+-(void)viewDidAppear:(BOOL)animated{
+
     [self getttingProjectPhase];
 }
-
 -(void)getttingProjectPhase
 {
     spinnerView.hidden = NO;
