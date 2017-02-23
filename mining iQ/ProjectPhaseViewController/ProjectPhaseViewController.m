@@ -76,7 +76,6 @@
             self.tableView.delegate = self;
             self.tableView.dataSource = self;
             [self.tableView reloadData];
-                
         }
         else
         {
