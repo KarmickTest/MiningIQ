@@ -61,7 +61,7 @@
     
     NSMutableDictionary *projectsOfInterest = [[NSMutableDictionary alloc] init];
     [projectsOfInterest setObject:@"Projects of Interest" forKey:@"headingName"];
-    [projectsOfInterest setObject:@"myRimdrs" forKey:@"imageName"];
+    [projectsOfInterest setObject:@"projectofinterest" forKey:@"imageName"];
     
     NSMutableDictionary *projectSearch = [[NSMutableDictionary alloc] init];
     [projectSearch setObject:@"Project Search" forKey:@"headingName"];
