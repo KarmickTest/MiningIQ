@@ -65,7 +65,14 @@
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
             spinnerView.hidden = YES;
-            newProjectListArray = [testResult objectForKey:@"details"];
+            newProjectListArray = [[testResult objectForKey:@"details"] mutableCopy];
+            int tempStart = [start intValue] + 7;
+            int tempLimit = [limit intValue] + 8;
+            
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+            
             [self.tableView reloadData];
             NSLog(@"url is : %lu",(unsigned long)newProjectListArray.count);
             
@@ -82,6 +89,65 @@
     
 }
 
+- (IBAction)addMoreContent:(id)sender {
+    
+    
+    spinnerView.hidden = NO;
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=%@&num_records=%@",start,limit];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,NewProject];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+          
+            
+            
+            
+            int tempStart = [start intValue] + 7;
+            int tempLimit = [limit intValue] + 8;
+             start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+            
+            NSInteger pos = [newProjectListArray count];
+           
+            NSMutableArray *nextPaymentArr = [[NSMutableArray alloc] init];
+            nextPaymentArr = [[testResult objectForKey:@"details"] mutableCopy];
+            
+            [newProjectListArray addObjectsFromArray:nextPaymentArr];
+            
+            [self.tableView beginUpdates];
+            
+            for (int k=0; k<nextPaymentArr.count; k++)
+            {
+                NSArray *insert0 = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:pos inSection:0]];
+                
+                [self.tableView insertRowsAtIndexPaths:insert0 withRowAnimation:UITableViewRowAnimationBottom];
+                
+                pos++;
+            }
+            [self.tableView endUpdates];
+
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:newProjectListArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+            NSLog(@"url is : %lu",(unsigned long)newProjectListArray.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+
+    
+    
+}
 
 
 - (IBAction)backTapped:(id)sender {

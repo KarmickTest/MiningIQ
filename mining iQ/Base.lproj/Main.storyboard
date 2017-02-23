@@ -585,6 +585,9 @@
                                         <state key="normal" title="View More">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addMoreContent:" destination="yDD-0r-b0x" eventType="touchUpInside" id="bdG-Ql-wik"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
