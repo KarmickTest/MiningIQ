@@ -37,6 +37,8 @@
 		820E7CD71E4DA12600933C7E /* ProjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 820E7CD61E4DA12600933C7E /* ProjectDetailViewController.m */; };
 		820E7CD81E4DBA6400933C7E /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A1804E21E449FB4004B7356 /* OpenSans.ttf */; };
 		820E7CDC1E4DC27F00933C7E /* ProjectDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 820E7CDB1E4DC27F00933C7E /* ProjectDetailTableViewCell.m */; };
+		821AE9B91E5EB0B200105AF1 /* Loader.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AE9B81E5EB0B200105AF1 /* Loader.m */; };
+		821AE9BD1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AE9BC1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.m */; };
 		82713DE41E51972200AF7DCE /* RecentlyUpdatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82713DE31E51972200AF7DCE /* RecentlyUpdatedViewController.m */; };
 		82713DF21E51996300AF7DCE /* ProjectPhaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82713DF11E51996300AF7DCE /* ProjectPhaseViewController.m */; };
 		82713DF61E51B74E00AF7DCE /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82713DF51E51B74E00AF7DCE /* InformationViewController.m */; };
@@ -101,6 +103,10 @@
 		820E7CD61E4DA12600933C7E /* ProjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailViewController.m; sourceTree = "<group>"; };
 		820E7CDA1E4DC27F00933C7E /* ProjectDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDetailTableViewCell.h; sourceTree = "<group>"; };
 		820E7CDB1E4DC27F00933C7E /* ProjectDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailTableViewCell.m; sourceTree = "<group>"; };
+		821AE9B71E5EB0B200105AF1 /* Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loader.h; sourceTree = "<group>"; };
+		821AE9B81E5EB0B200105AF1 /* Loader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Loader.m; sourceTree = "<group>"; };
+		821AE9BB1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectListingUnderPhaseViewController.h; sourceTree = "<group>"; };
+		821AE9BC1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectListingUnderPhaseViewController.m; sourceTree = "<group>"; };
 		82713DE21E51972200AF7DCE /* RecentlyUpdatedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyUpdatedViewController.h; sourceTree = "<group>"; };
 		82713DE31E51972200AF7DCE /* RecentlyUpdatedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentlyUpdatedViewController.m; sourceTree = "<group>"; };
 		82713DF01E51996300AF7DCE /* ProjectPhaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectPhaseViewController.h; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 		5A1804C71E449245004B7356 /* mining iQ */ = {
 			isa = PBXGroup;
 			children = (
+				821AE9B61E5EB0A500105AF1 /* Loader */,
 				82F7E1F31E547AF100CE0E5B /* miningIQ.entitlements */,
 				82F7E1F01E543EE500CE0E5B /* DefineHeader */,
 				4EBF0F241E4DF0E000F71E16 /* MenuTableViewCell */,
@@ -248,6 +255,7 @@
 		5A8F67A01E4891DD005EEF8A /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				821AE9BE1E5EB57200105AF1 /* ProjectListingUnderPhaseTableViewCell */,
 				84F8CA231E517D7C00DBF008 /* ProjectPhaseCell */,
 				84AFFD241E4E00FA00DD8726 /* RecentlyUpdatedCell */,
 				4EB0FBAC1E4DC0F800ABFFC2 /* ProjectofintrrestCell */,
@@ -264,6 +272,7 @@
 		5A8F67A41E48B15C005EEF8A /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				821AE9BA1E5EB14800105AF1 /* ProjectListingUnderPhaseViewController */,
 				82F7E1EB1E54387F00CE0E5B /* LoginViewController */,
 				82713DF31E51B73300AF7DCE /* InformationViewController */,
 				82713DEC1E51985C00AF7DCE /* ProjectPhaseViewController */,
@@ -372,6 +381,31 @@
 				820E7CDB1E4DC27F00933C7E /* ProjectDetailTableViewCell.m */,
 			);
 			name = ProjectDetailTableViewCell;
+			sourceTree = "<group>";
+		};
+		821AE9B61E5EB0A500105AF1 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				821AE9B71E5EB0B200105AF1 /* Loader.h */,
+				821AE9B81E5EB0B200105AF1 /* Loader.m */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		821AE9BA1E5EB14800105AF1 /* ProjectListingUnderPhaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				821AE9BB1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.h */,
+				821AE9BC1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.m */,
+			);
+			path = ProjectListingUnderPhaseViewController;
+			sourceTree = "<group>";
+		};
+		821AE9BE1E5EB57200105AF1 /* ProjectListingUnderPhaseTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ProjectListingUnderPhaseTableViewCell;
 			sourceTree = "<group>";
 		};
 		82713DD21E518F9500AF7DCE /* RecentlyUpdatedViewController */ = {
@@ -587,6 +621,7 @@
 			files = (
 				8293AB2A1E49CD2B0042D0C6 /* NewsFeedViewController.m in Sources */,
 				820E3BB51E4B002D0071F56F /* MultiPleDropDownTableViewCell.m in Sources */,
+				821AE9BD1E5EB16200105AF1 /* ProjectListingUnderPhaseViewController.m in Sources */,
 				5A8F67A81E48B1A6005EEF8A /* NewProjectsViewController.m in Sources */,
 				4EB0FBAB1E4D963800ABFFC2 /* ProjectofInterestViewController.m in Sources */,
 				4EB0FBAF1E4DC15D00ABFFC2 /* ProjectofInterestCell.m in Sources */,
@@ -610,6 +645,7 @@
 				5A8F677D1E483E1C005EEF8A /* DashBoardViewController.m in Sources */,
 				4EBF0F321E4DF0E000F71E16 /* MenuListCell.m in Sources */,
 				82F7E1EE1E5438E700CE0E5B /* ViewController.m in Sources */,
+				821AE9B91E5EB0B200105AF1 /* Loader.m in Sources */,
 				8293AB2F1E49CFC80042D0C6 /* NewsFeedTableViewCell.m in Sources */,
 				820E3BB21E4B000B0071F56F /* DropDownTableViewCell.m in Sources */,
 				5A1804CA1E449245004B7356 /* main.m in Sources */,
