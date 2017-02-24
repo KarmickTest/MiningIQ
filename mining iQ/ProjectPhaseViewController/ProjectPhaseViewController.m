@@ -9,6 +9,7 @@
 #import "ProjectPhaseViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import "ProjectListingUnderPhaseViewController.h"
 
 @interface ProjectPhaseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -44,8 +45,6 @@
     spinnerView.hidden = YES;
     
     //////////
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -118,6 +117,14 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40.0f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProjectListingUnderPhaseViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectListingUnderPhaseViewController"];
+    
+    vc.phaseId = [[projectPhaseArr objectAtIndex:indexPath.row] valueForKey:@"phase_id"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

@@ -30,11 +30,15 @@
     // Do any additional setup after loading the view.
     start = @"0";
     limit = @"8";
+    
     newProjectListArray = [[NSMutableArray alloc] init];
+    
     spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
     spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
     spinnerView.layer.cornerRadius = 8.0f;
     spinnerView.clipsToBounds = YES;
+    
+    /////////// for loader view
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
@@ -83,7 +87,6 @@
             spinnerView.hidden = YES;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alert show];
-            
         }
         
     } andString:strLoginApi andParam:postUrlString];
@@ -104,12 +107,10 @@
         {
             spinnerView.hidden = YES;
           
-            
-            
-            
             int tempStart = [start intValue] + 7;
             int tempLimit = [limit intValue] + 8;
-             start = [NSString stringWithFormat:@"%d",tempStart];
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
             limit = [NSString stringWithFormat:@"%d",tempLimit];
             
             NSInteger pos = [newProjectListArray count];

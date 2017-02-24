@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProjectListingUnderPhaseTableViewCell.h"
 
 @interface ProjectListingUnderPhaseViewController : UIViewController
+{
+    ProjectListingUnderPhaseTableViewCell *cell;
+}
 
+@property (weak, nonatomic) IBOutlet UITableView *subProjectsTableView;
+@property (strong, nonatomic)NSString *phaseId;
 @end

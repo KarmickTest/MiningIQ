@@ -45,6 +45,7 @@
 		8293AB251E49C4FC0042D0C6 /* VKSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8293AB241E49C4FC0042D0C6 /* VKSideMenu.m */; };
 		8293AB2A1E49CD2B0042D0C6 /* NewsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8293AB291E49CD2B0042D0C6 /* NewsFeedViewController.m */; };
 		8293AB2F1E49CFC80042D0C6 /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8293AB2E1E49CFC80042D0C6 /* NewsFeedTableViewCell.m */; };
+		82E4D3951E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E4D3941E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.m */; };
 		82F7E1EE1E5438E700CE0E5B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F7E1ED1E5438E700CE0E5B /* ViewController.m */; };
 		82F7E1F21E543FF500CE0E5B /* DefineHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = 82F7E1F11E543EFD00CE0E5B /* DefineHeader.pch */; };
 		8408ED201E4B1B8B00A014F5 /* MyRemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408ED1F1E4B1B8A00A014F5 /* MyRemindersViewController.m */; };
@@ -119,6 +120,8 @@
 		8293AB291E49CD2B0042D0C6 /* NewsFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsFeedViewController.m; sourceTree = "<group>"; };
 		8293AB2D1E49CFC80042D0C6 /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFeedTableViewCell.h; sourceTree = "<group>"; };
 		8293AB2E1E49CFC80042D0C6 /* NewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsFeedTableViewCell.m; sourceTree = "<group>"; };
+		82E4D3931E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectListingUnderPhaseTableViewCell.h; sourceTree = "<group>"; };
+		82E4D3941E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectListingUnderPhaseTableViewCell.m; sourceTree = "<group>"; };
 		82F7E1EC1E5438E700CE0E5B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		82F7E1ED1E5438E700CE0E5B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		82F7E1F11E543EFD00CE0E5B /* DefineHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineHeader.pch; sourceTree = "<group>"; };
@@ -404,6 +407,8 @@
 		821AE9BE1E5EB57200105AF1 /* ProjectListingUnderPhaseTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				82E4D3931E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.h */,
+				82E4D3941E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.m */,
 			);
 			path = ProjectListingUnderPhaseTableViewCell;
 			sourceTree = "<group>";
@@ -627,6 +632,7 @@
 				4EB0FBAF1E4DC15D00ABFFC2 /* ProjectofInterestCell.m in Sources */,
 				84AFFD231E4E00F200DD8726 /* RecentlyUpdatedCell.m in Sources */,
 				8408ED251E4B383600A014F5 /* MyRemindersCell.m in Sources */,
+				82E4D3951E60002500450BA2 /* ProjectListingUnderPhaseTableViewCell.m in Sources */,
 				820E7CD71E4DA12600933C7E /* ProjectDetailViewController.m in Sources */,
 				5A1804D61E449245004B7356 /* mining_iQ.xcdatamodeld in Sources */,
 				82713DE41E51972200AF7DCE /* RecentlyUpdatedViewController.m in Sources */,
