@@ -7,8 +7,18 @@
 //
 
 #import "RecentlyUpdatedViewController.h"
+#import "Singelton.h"
+#import "DefineHeader.pch"
+@interface RecentlyUpdatedViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    
+    NSString *start;
+    NSString *limit;
+    UIView *spinnerView;
+    UIActivityIndicatorView *spinner;
+    NSMutableArray *newRecentlyUpdateAry;
+    
+}
 
-@interface RecentlyUpdatedViewController ()
 
 @end
 
@@ -17,6 +27,77 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    start = @"0";
+    limit = @"20";
+    
+    newRecentlyUpdateAry = [[NSMutableArray alloc] init];
+    
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    /////////// for loader view
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    [spinner startAnimating];
+    [spinnerView addSubview:spinner];
+    [self.view addSubview:spinnerView];
+    spinnerView.hidden = YES;
+    
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self getAllReminderListing:start limitVal:limit];
+    
+    
+    
+}
+-(void)getAllReminderListing:(NSString *)startVal limitVal:(NSString *)limitVal{
+    
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"244";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=%@&num_records=%@",startVal,limitVal];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,recentlyUpdatedProjects];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            newRecentlyUpdateAry = [[testResult objectForKey:@"details"] mutableCopy];
+            if(newRecentlyUpdateAry.count < [limit intValue]){
+                
+                self.viewMrBtn.hidden = YES;
+                
+            }
+            int tempStart = [start intValue] + 19;
+            int tempLimit = [limit intValue] + 20;
+            
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+            //
+            [self.recentlyUpdateTbl reloadData];
+            NSLog(@"url is : %lu",(unsigned long)newRecentlyUpdateAry.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,14 +132,18 @@
     {
         cell.cellBackView.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1];
     }
+    NSLog(@"........%@",[[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"]);
     
+    
+    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"];
+    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"datemodified"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return newRecentlyUpdateAry.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -9,10 +9,19 @@
 #import "MyRemindersViewController.h"
 #import "MyRemindersCell.h"
 #import "NewProjectsViewController.h"
+#import "Singelton.h"
+#import "DefineHeader.pch"
 
 
+@interface MyRemindersViewController (){
 
-@interface MyRemindersViewController ()
+    NSString *start;
+    NSString *limit;
+    UIView *spinnerView;
+    UIActivityIndicatorView *spinner;
+    NSMutableArray *newReminderListArray;
+
+}
 
 @end
 
@@ -21,6 +30,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    start = @"0";
+    limit = @"20";
+    
+    newReminderListArray = [[NSMutableArray alloc] init];
+    
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    /////////// for loader view
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    [spinner startAnimating];
+    [spinnerView addSubview:spinner];
+    [self.view addSubview:spinnerView];
+    spinnerView.hidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -30,8 +59,54 @@
     self.topHeaderView = [self roundCornersOnView:self.topHeaderView onTopLeft:YES topRight:YES bottomLeft:NO bottomRight:NO radius:4];
     
     self.footerView = [self roundCornersOnView:self.footerView onTopLeft:NO topRight:NO bottomLeft:YES bottomRight:YES radius:4];
+    [self getAllReminderListing:start limitVal:limit];
 }
 
+
+-(void)getAllReminderListing:(NSString *)startVal limitVal:(NSString *)limitVal{
+    
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"244";
+   // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&limit_start=%@&num_records=%@",userId,startVal,limitVal];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getMyyReminders];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            newReminderListArray = [[testResult objectForKey:@"details"] mutableCopy];
+            if(newReminderListArray.count < [limit intValue]){
+            
+                self.viewMrBtn.hidden = YES;
+            
+            }
+            int tempStart = [start intValue] + 19;
+            int tempLimit = [limit intValue] + 20;
+            
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+//            
+           [self.myReminderTbl reloadData];
+            NSLog(@"url is : %lu",(unsigned long)newReminderListArray.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
 
 - (IBAction)btnOpenMenu:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -42,7 +117,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 9;
+    return newReminderListArray.count;
     
     
 }
@@ -51,8 +126,8 @@
     
     
     MyRemindersCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MyRemindersCell"];
-//    cell.titleLbl.text = [nameArr objectAtIndex:indexPath.row];
-//    cell.imgView.image = [UIImage imageNamed:[imgArr objectAtIndex:indexPath.row]];
+    cell.projectLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.dateLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"created"];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

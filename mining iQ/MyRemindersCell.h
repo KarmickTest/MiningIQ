@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MyRemindersCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *projectLbl;
+@property (weak, nonatomic) IBOutlet UILabel *dateLbl;
 
 @end

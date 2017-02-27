@@ -150,7 +150,7 @@
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
             [[NSUserDefaults standardUserDefaults] setValue:[[testResult valueForKey:@"details"] valueForKey:@"user_id"] forKey:@"user_id"];
-            
+            [[NSUserDefaults standardUserDefaults] synchronize];
             DashBoardViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DashBoardViewController"];
             
             CATransition* transition = [CATransition animation];

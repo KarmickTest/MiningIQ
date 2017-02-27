@@ -10,5 +10,7 @@
 
 @interface RecentlyUpdatedCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIView *cellBackView;
+@property (weak, nonatomic) IBOutlet UILabel *projectNameLbl;
+@property (weak, nonatomic) IBOutlet UILabel *dateLbl;
 
 @end

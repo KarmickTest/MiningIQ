@@ -20,5 +20,6 @@
 #define ProjectPhase @"PhasewiseProjectCount"
 #define NewsFeed @"newsfeed"
 #define ProjectUnderPhase @"projectsunderphase"
-
+#define getMyyReminders @"getmyreminders?"
+#define recentlyUpdatedProjects @"recentlyupdatedprojects?"
 #endif /* DefineHeader_pch */

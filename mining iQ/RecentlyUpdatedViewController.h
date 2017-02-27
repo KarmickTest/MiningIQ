@@ -14,6 +14,8 @@
 {
     RecentlyUpdatedCell *cell;
 }
+@property (weak, nonatomic) IBOutlet UIButton *viewMrBtn;
+@property (weak, nonatomic) IBOutlet UITableView *recentlyUpdateTbl;
 - (IBAction)btnBack:(id)sender;
 
 @end

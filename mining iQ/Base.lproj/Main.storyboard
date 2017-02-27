@@ -2480,6 +2480,10 @@
                                                 <constraint firstItem="4J7-qg-kEE" firstAttribute="leading" secondItem="RdQ-o6-3yg" secondAttribute="leading" constant="10" id="zmN-Lg-bnY"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLbl" destination="ryx-Up-02E" id="NdX-yq-qRI"/>
+                                            <outlet property="projectLbl" destination="ifk-rR-vm3" id="OMr-8s-WQN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -2501,8 +2505,10 @@
                     </view>
                     <connections>
                         <outlet property="footerView" destination="Ek1-3A-T9f" id="P0Z-Il-Ald"/>
+                        <outlet property="myReminderTbl" destination="0Zc-r2-Hpd" id="lEc-6x-KsI"/>
                         <outlet property="openMenu" destination="oDy-IQ-cdP" id="g6e-th-kxL"/>
                         <outlet property="topHeaderView" destination="r7y-Xr-0XE" id="9Jl-nS-GJC"/>
+                        <outlet property="viewMrBtn" destination="cQg-Iq-pOr" id="H6Y-2U-gqm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nkh-cy-9EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2629,6 +2635,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cellBackView" destination="gao-Qz-dNR" id="bJ5-XT-mlq"/>
+                                            <outlet property="dateLbl" destination="pgE-mX-1ve" id="u3A-t0-Nwk"/>
+                                            <outlet property="projectNameLbl" destination="nQ1-Br-xF9" id="zwK-cE-3gf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2675,6 +2683,10 @@
                             <constraint firstItem="KeZ-EM-82p" firstAttribute="top" secondItem="CUx-Ex-Icb" secondAttribute="bottom" constant="80" id="xDO-YK-2rP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="recentlyUpdateTbl" destination="CUx-Ex-Icb" id="kcB-tw-hQf"/>
+                        <outlet property="viewMrBtn" destination="zjN-Y1-2Yw" id="X2i-qT-Eby"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C8m-rz-vZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

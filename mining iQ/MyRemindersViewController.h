@@ -12,9 +12,11 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *openMenu;
 - (IBAction)btnOpenMenu:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *viewMrBtn;
 
 @property (weak, nonatomic) IBOutlet UIView *topHeaderView;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UITableView *myReminderTbl;
 
 
 @end
