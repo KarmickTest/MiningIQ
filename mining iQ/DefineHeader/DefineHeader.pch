@@ -22,4 +22,5 @@
 #define ProjectUnderPhase @"projectsunderphase"
 #define getMyyReminders @"getmyreminders?"
 #define recentlyUpdatedProjects @"recentlyupdatedprojects?"
+#define projectsOfInterestofuser @"projectsofinterestofuser?"
 #endif /* DefineHeader_pch */

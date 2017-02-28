@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ProjectofInterestCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *demoProjectLbl;
 
 @end

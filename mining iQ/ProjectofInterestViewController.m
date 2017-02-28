@@ -8,10 +8,17 @@
 
 #import "ProjectofInterestViewController.h"
 #import "ProjectofInterestCell.h"
+#import "Singelton.h"
+#import "DefineHeader.pch"
 
 @interface ProjectofInterestViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     ProjectofInterestCell *cell;
+    NSMutableArray *projectOfinterArray;
+    NSString *start;
+    NSString *limit;
+    UIView *spinnerView;
+    UIActivityIndicatorView *spinner;
 }
 
 @end
@@ -24,9 +31,131 @@
     
     self.Project_TableView.delegate=self;
     self.Project_TableView.dataSource=self;
-    [self.Project_TableView reloadData];
-}
+   
+    
+    start = @"0";
+    limit = @"8";
 
+    projectOfinterArray = [[NSMutableArray alloc] init];
+    
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    /////////// for loader view
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    [spinner startAnimating];
+    [spinnerView addSubview:spinner];
+    [self.view addSubview:spinnerView];
+    spinnerView.hidden = YES;
+
+    [self getAllInterProjectListing:start limitVal:limit];
+}
+-(void)getAllInterProjectListing:(NSString *)startVal limitVal:(NSString *)limitVal{
+    
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"2311`";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&limit_start=%@&num_records=%@",userId,startVal,limitVal];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,projectsOfInterestofuser];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            projectOfinterArray = [[testResult objectForKey:@"details"] mutableCopy];
+            NSLog(@"testResult..%@",projectOfinterArray);
+            
+            
+            if(projectOfinterArray.count < [limit intValue]){
+                
+                self.viewMrBtn.hidden = NO;
+                
+            }
+            int tempStart = [start intValue] + 7;
+            int tempLimit = [limit intValue] + 8;
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+            self.userNameLbl.text = [[projectOfinterArray objectAtIndex:0] objectForKey:@"username"];
+            [self.Project_TableView reloadData];
+            NSLog(@"url is : %lu",(unsigned long)projectOfinterArray.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
+- (IBAction)viewMoreClicked:(id)sender {
+    
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"2311`";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&limit_start=%@&num_records=%@",userId,start,limit];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,projectsOfInterestofuser];
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            
+            int tempStart = [start intValue] + 7;
+            int tempLimit = [limit intValue] + 8;
+            
+            start = [NSString stringWithFormat:@"%d",tempStart];
+            limit = [NSString stringWithFormat:@"%d",tempLimit];
+            
+            NSInteger pos = [projectOfinterArray count];
+            
+            NSMutableArray *nextPaymentArr = [[NSMutableArray alloc] init];
+            nextPaymentArr = [[testResult objectForKey:@"details"] mutableCopy];
+            
+            [projectOfinterArray addObjectsFromArray:nextPaymentArr];
+            
+            [self.Project_TableView beginUpdates];
+            
+            for (int k=0; k<nextPaymentArr.count; k++)
+            {
+                NSArray *insert0 = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:pos inSection:0]];
+                
+                [self.Project_TableView insertRowsAtIndexPaths:insert0 withRowAnimation:UITableViewRowAnimationBottom];
+                
+                pos++;
+            }
+            [self.Project_TableView endUpdates];
+            
+            [self.Project_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:projectOfinterArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+            NSLog(@"url is : %lu",(unsigned long)projectOfinterArray.count);
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -40,13 +169,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return projectOfinterArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell=[tableView dequeueReusableCellWithIdentifier:@"ProjectofInterestCell"];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    cell.demoProjectLbl.text = [[projectOfinterArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
