@@ -23,4 +23,6 @@
 #define getMyyReminders @"getmyreminders?"
 #define recentlyUpdatedProjects @"recentlyupdatedprojects?"
 #define projectsOfInterestofuser @"projectsofinterestofuser?"
+#define deleteReminder @"deletereminder?"
+#define markascompletedReminder @"markascompletedreminder?"
 #endif /* DefineHeader_pch */

@@ -2490,6 +2490,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLbl" destination="ryx-Up-02E" id="NdX-yq-qRI"/>
+                                            <outlet property="deleteBtn" destination="JdE-d5-m9c" id="c3J-IN-FW5"/>
+                                            <outlet property="markAsCompletedbtn" destination="Itp-gf-dyf" id="yDc-CU-QYK"/>
                                             <outlet property="projectLbl" destination="ifk-rR-vm3" id="OMr-8s-WQN"/>
                                         </connections>
                                     </tableViewCell>
