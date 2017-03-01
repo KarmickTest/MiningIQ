@@ -11,5 +11,8 @@
 @interface MyRemindersCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *projectLbl;
 @property (weak, nonatomic) IBOutlet UILabel *dateLbl;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIButton *markAsCompletedbtn;
+
 
 @end

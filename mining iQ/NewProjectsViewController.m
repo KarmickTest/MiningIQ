@@ -189,7 +189,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
+    
     ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
+    projdetVC.strID_Carry = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"id"];
     [self.navigationController pushViewController:projdetVC animated:YES];
 }
 

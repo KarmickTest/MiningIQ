@@ -22,4 +22,12 @@
 #define ProjectUnderPhase @"projectsunderphase"
 #define getMyyReminders @"getmyreminders?"
 #define recentlyUpdatedProjects @"recentlyupdatedprojects?"
+#define projectsOfInterestofuser @"projectsofinterestofuser?"
+<<<<<<< HEAD
+#define ProjectDetails @"getprojectsdetailsbyid/?"
+
+=======
+#define deleteReminder @"deletereminder?"
+#define markascompletedReminder @"markascompletedreminder?"
+>>>>>>> origin/master
 #endif /* DefineHeader_pch */

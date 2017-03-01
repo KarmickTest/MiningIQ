@@ -128,7 +128,10 @@
     MyRemindersCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MyRemindersCell"];
     cell.projectLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.dateLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"created"];
-    
+    cell.deleteBtn.tag = indexPath.row;
+    [cell.deleteBtn addTarget:self action:@selector(removeReminder:) forControlEvents:UIControlEventTouchUpInside];
+    cell.markAsCompletedbtn.tag = indexPath.row;
+    [cell.markAsCompletedbtn addTarget:self action:@selector(markAsCompleted:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -154,7 +157,78 @@
         
     }
 }
+-(void)markAsCompleted:(UIButton *) sender {
+    
+    NSLog(@"Tag : %ld", (long)sender.tag);
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"244";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    
+    //[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&reminderid=%@",userId,[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,markascompletedReminder];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            [self.myReminderTbl beginUpdates];
+            
+            NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:sender.tag inSection:0],nil];
+            [self.myReminderTbl deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];[self.myReminderTbl endUpdates];
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
+- (void) removeReminder:(UIButton *) sender {
+    
+    NSLog(@"Tag : %ld", (long)sender.tag);
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"244";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    
+    //[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&reminderid=%@",userId,[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,deleteReminder];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+           [self.myReminderTbl beginUpdates];
+            
+            NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:sender.tag inSection:0],nil];
+            [self.myReminderTbl deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];[self.myReminderTbl endUpdates];
 
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+    
+}
 -(UIView *)roundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
     
     if (tl || tr || bl || br)

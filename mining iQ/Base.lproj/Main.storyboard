@@ -1183,7 +1183,15 @@
                     <connections>
                         <outlet property="headerSubView" destination="BC4-wg-V8j" id="rok-8Z-Q6y"/>
                         <outlet property="headerView" destination="cWv-cf-kcc" id="Iri-75-V2W"/>
+                        <outlet property="lbl_City" destination="Jxi-N7-78F" id="TVy-LH-BtG"/>
+                        <outlet property="lbl_Country" destination="nLi-TD-5rM" id="BF7-w3-qa6"/>
+                        <outlet property="lbl_Date" destination="8tk-T7-kZh" id="CqM-xK-fU4"/>
+                        <outlet property="lbl_LocationContinent" destination="KCP-PS-qW9" id="T13-Fp-kdI"/>
+                        <outlet property="lbl_ProjectName" destination="IDc-LQ-03e" id="Crd-hH-hlI"/>
+                        <outlet property="lbl_Province" destination="vj4-5f-rut" id="AJH-uS-Xfg"/>
+                        <outlet property="lbl_Region" destination="SgN-jo-6SG" id="kdO-VQ-b4h"/>
                         <outlet property="projectDescriptionLbl" destination="Vpf-9A-CAb" id="Mqh-cV-8cy"/>
+                        <outlet property="tbl_View" destination="jwP-bM-Bl9" id="cVH-wQ-nbL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kef-Hc-Cs0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1927,7 +1935,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demo Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LfS-wz-ua4">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LfS-wz-ua4">
                                                     <rect key="frame" x="97" y="48" width="203" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="eFa-hm-9MA"/>
@@ -1986,6 +1994,9 @@
                                                     <state key="normal" title="View More">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="viewMoreClicked:" destination="tG9-hN-GLd" eventType="touchUpInside" id="7pp-oh-t3X"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2097,6 +2108,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="demoProjectLbl" destination="7SU-er-S0I" id="8FW-AS-Joc"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -2116,6 +2130,8 @@
                         <outlet property="Project_TableView" destination="BWX-ag-ygd" id="i5N-Bf-0jd"/>
                         <outlet property="footerView" destination="8LR-on-nW5" id="tHc-YZ-fU2"/>
                         <outlet property="headerView" destination="5uS-Mc-02B" id="Zig-W4-nmJ"/>
+                        <outlet property="userNameLbl" destination="LfS-wz-ua4" id="SUd-sv-AcX"/>
+                        <outlet property="viewMrBtn" destination="bCw-sM-YiJ" id="FWS-YT-dd7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKk-vP-9b6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2482,6 +2498,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLbl" destination="ryx-Up-02E" id="NdX-yq-qRI"/>
+                                            <outlet property="deleteBtn" destination="JdE-d5-m9c" id="c3J-IN-FW5"/>
+                                            <outlet property="markAsCompletedbtn" destination="Itp-gf-dyf" id="yDc-CU-QYK"/>
                                             <outlet property="projectLbl" destination="ifk-rR-vm3" id="OMr-8s-WQN"/>
                                         </connections>
                                     </tableViewCell>
