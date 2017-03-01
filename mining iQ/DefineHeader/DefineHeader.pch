@@ -24,8 +24,13 @@
 #define recentlyUpdatedProjects @"recentlyupdatedprojects?"
 #define projectsOfInterestofuser @"projectsofinterestofuser?"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define ProjectDetails @"getprojectsdetailsbyid/?"
 
+=======
+#define deleteReminder @"deletereminder?"
+#define markascompletedReminder @"markascompletedreminder?"
+>>>>>>> origin/master
 =======
 #define deleteReminder @"deletereminder?"
 #define markascompletedReminder @"markascompletedreminder?"
