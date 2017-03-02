@@ -114,11 +114,15 @@
             self.lbl_Region.text=[[contentArr objectAtIndex:0] valueForKey:@"regionname"];
             self.lbl_Province.text=[[contentArr objectAtIndex:0] valueForKey:@"provincename"];
             
-            if ([[[contentArr objectAtIndex:0] valueForKey:@"citiesname"]isEqual:[NSNull null]]) {
+            if ([[[contentArr objectAtIndex:0] valueForKey:@"citiesname"]isEqual:[NSNull null]] || [[[contentArr objectAtIndex:0] valueForKey:@"citiesname"] isEqualToString:@""]) {
                 self.lbl_City.text=@"N/A";
             } else {
                 self.lbl_City.text=[[contentArr objectAtIndex:0] valueForKey:@"citiesname"];
             }
+            
+            self.lbl_ProjectArea.text=[[contentArr objectAtIndex:0] valueForKey:@"area"];
+            self.lbl_CapitalValue.text=[[contentArr objectAtIndex:0] valueForKey:@"cap_value"];
+            self.lbl_MineralName.text=[[contentArr objectAtIndex:0] valueForKey:@"mineralname"];
             
             
             // === ======== ============= =================
@@ -129,7 +133,7 @@
             CGRect messageRectLeft = [str boundingRectWithSize:constraintSize options:NSStringDrawingUsesFontLeading
                                       |NSStringDrawingUsesLineFragmentOrigin|NSLineBreakByWordWrapping|NSLineBreakByCharWrapping attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans" size:12]} context:nil];
             
-            self.headerView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 184 + 10 + 20);
+            self.headerView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 360 + 10 + 20);
             
             self.projectDescriptionLbl.text = str;
             [self.projectDescriptionLbl sizeToFit];

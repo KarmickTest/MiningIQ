@@ -29,6 +29,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbl_Country;
 @property (strong, nonatomic) IBOutlet UILabel *lbl_Province;
 @property (strong, nonatomic) IBOutlet UILabel *lbl_City;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_ProjectArea;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_CapitalValue;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_MineralName;
 
 
 @property (nonatomic,strong) NSString *strID_Carry;
