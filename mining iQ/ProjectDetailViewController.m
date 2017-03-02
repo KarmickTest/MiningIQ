@@ -14,6 +14,7 @@
 {
     CGSize constraintSize;
     NSMutableArray *contentArr;
+    NSMutableArray *tableArr;
 }
 
 @end
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-   // contentArr = [[NSMutableArray alloc] initWithObjects:@"COMMENTARY",@"MY REMINDERS", @"MINE OWNERS", @"PROJECT BEGINEERS", @"PROJECT SUPPLIERS", nil];
+    tableArr = [[NSMutableArray alloc] initWithObjects:@"COMMENTARY",@"MY REMINDERS", @"MINE OWNERS", @"PROJECT BEGINEERS", @"PROJECT SUPPLIERS", nil];
     
     contentArr = [[NSMutableArray alloc] init];
     
@@ -166,7 +167,7 @@
     cell.backView.layer.cornerRadius = 4.0;
     cell.backView.clipsToBounds = YES;
     
-   // cell.contentLbl.text = [contentArr objectAtIndex:indexPath.row];
+    cell.contentLbl.text = [tableArr objectAtIndex:indexPath.row];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -180,7 +181,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return contentArr.count;
+    return tableArr.count;
 }
 
 - (void)didReceiveMemoryWarning {

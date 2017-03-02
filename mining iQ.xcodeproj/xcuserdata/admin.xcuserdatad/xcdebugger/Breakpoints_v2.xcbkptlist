@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/ProjectDetailViewController.m"
-            timestampString = "510128732.002942"
+            timestampString = "510133658.608417"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-getAllProjectDetailsListing"
             landmarkType = "7">
          </BreakpointContent>
