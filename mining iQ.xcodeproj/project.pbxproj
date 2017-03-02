@@ -20,6 +20,7 @@
 		5A1804D61E449245004B7356 /* mining_iQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A1804D41E449245004B7356 /* mining_iQ.xcdatamodeld */; };
 		5A1804D81E449245004B7356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A1804D71E449245004B7356 /* Assets.xcassets */; };
 		5A1804DB1E449245004B7356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A1804D91E449245004B7356 /* LaunchScreen.storyboard */; };
+		5A533A1F1E68399D0078A773 /* addReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A533A1E1E68399D0078A773 /* addReminderViewController.m */; };
 		5A8F677D1E483E1C005EEF8A /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F677C1E483E1C005EEF8A /* DashBoardViewController.m */; };
 		5A8F67801E48401E005EEF8A /* Singelton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F677F1E48401E005EEF8A /* Singelton.m */; };
 		5A8F67A31E489214005EEF8A /* dashBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F67A21E489214005EEF8A /* dashBoardCell.m */; };
@@ -77,6 +78,8 @@
 		5A1804DA1E449245004B7356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A1804DC1E449245004B7356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1804E21E449FB4004B7356 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
+		5A533A1D1E68399D0078A773 /* addReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addReminderViewController.h; sourceTree = "<group>"; };
+		5A533A1E1E68399D0078A773 /* addReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addReminderViewController.m; sourceTree = "<group>"; };
 		5A8F677B1E483E1C005EEF8A /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		5A8F677C1E483E1C005EEF8A /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
 		5A8F677E1E48401E005EEF8A /* Singelton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singelton.h; sourceTree = "<group>"; };
@@ -255,6 +258,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5A533A1C1E6839480078A773 /* Addreminderviewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				5A533A1D1E68399D0078A773 /* addReminderViewController.h */,
+				5A533A1E1E68399D0078A773 /* addReminderViewController.m */,
+			);
+			name = Addreminderviewcontroller;
+			sourceTree = "<group>";
+		};
 		5A8F67A01E4891DD005EEF8A /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +287,7 @@
 		5A8F67A41E48B15C005EEF8A /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5A533A1C1E6839480078A773 /* Addreminderviewcontroller */,
 				821AE9BA1E5EB14800105AF1 /* ProjectListingUnderPhaseViewController */,
 				82F7E1EB1E54387F00CE0E5B /* LoginViewController */,
 				82713DF31E51B73300AF7DCE /* InformationViewController */,
@@ -646,6 +659,7 @@
 				4EBF0F341E4DF0E000F71E16 /* MenuView.m in Sources */,
 				8293AB251E49C4FC0042D0C6 /* VKSideMenu.m in Sources */,
 				4EBF0F301E4DF0E000F71E16 /* MenuHeaderCell.m in Sources */,
+				5A533A1F1E68399D0078A773 /* addReminderViewController.m in Sources */,
 				5A8F67801E48401E005EEF8A /* Singelton.m in Sources */,
 				82713DF21E51996300AF7DCE /* ProjectPhaseViewController.m in Sources */,
 				5A8F677D1E483E1C005EEF8A /* DashBoardViewController.m in Sources */,

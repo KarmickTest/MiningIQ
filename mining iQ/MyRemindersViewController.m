@@ -11,7 +11,7 @@
 #import "NewProjectsViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
-
+#import "addReminderViewController.h"
 
 @interface MyRemindersViewController (){
 
@@ -50,6 +50,7 @@
     [spinnerView addSubview:spinner];
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
+     [self getAllReminderListing:start limitVal:limit];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -59,7 +60,17 @@
     self.topHeaderView = [self roundCornersOnView:self.topHeaderView onTopLeft:YES topRight:YES bottomLeft:NO bottomRight:NO radius:4];
     
     self.footerView = [self roundCornersOnView:self.footerView onTopLeft:NO topRight:NO bottomLeft:YES bottomRight:YES radius:4];
-    [self getAllReminderListing:start limitVal:limit];
+   
+}
+- (IBAction)addNewReminder:(id)sender {
+    
+    NSLog(@"*************");
+    
+    addReminderViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addReminderViewController"];
+    
+    [self.navigationController pushViewController:projdetVC animated:YES];
+    
+    
 }
 
 
@@ -95,6 +106,8 @@
 //            
            [self.myReminderTbl reloadData];
             NSLog(@"url is : %lu",(unsigned long)newReminderListArray.count);
+            
+            
             
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
