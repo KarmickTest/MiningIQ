@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
@@ -18,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Fabric with:@[[Crashlytics class]]];
+
     
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0){
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];

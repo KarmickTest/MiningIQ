@@ -50,6 +50,8 @@
 		82F7E1F21E543FF500CE0E5B /* DefineHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = 82F7E1F11E543EFD00CE0E5B /* DefineHeader.pch */; };
 		8408ED201E4B1B8B00A014F5 /* MyRemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408ED1F1E4B1B8A00A014F5 /* MyRemindersViewController.m */; };
 		8408ED251E4B383600A014F5 /* MyRemindersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408ED241E4B383600A014F5 /* MyRemindersCell.m */; };
+		84787AE31E693142000E2A42 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE11E693142000E2A42 /* Fabric.framework */; };
+		84787AE41E693142000E2A42 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE21E693142000E2A42 /* Crashlytics.framework */; };
 		84AFFD231E4E00F200DD8726 /* RecentlyUpdatedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFFD221E4E00F200DD8726 /* RecentlyUpdatedCell.m */; };
 		84F8CA221E517D6D00DBF008 /* ProjectPhaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F8CA211E517D6D00DBF008 /* ProjectPhaseCell.m */; };
 /* End PBXBuildFile section */
@@ -131,6 +133,8 @@
 		8408ED231E4B383600A014F5 /* MyRemindersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemindersCell.h; sourceTree = "<group>"; };
 		8408ED241E4B383600A014F5 /* MyRemindersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemindersCell.m; sourceTree = "<group>"; };
 		84607D8C1E4DFC6B0088F452 /* Global_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global_Header.h; sourceTree = "<group>"; };
+		84787AE11E693142000E2A42 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		84787AE21E693142000E2A42 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		84AFFD211E4E00F200DD8726 /* RecentlyUpdatedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyUpdatedCell.h; sourceTree = "<group>"; };
 		84AFFD221E4E00F200DD8726 /* RecentlyUpdatedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentlyUpdatedCell.m; sourceTree = "<group>"; };
 		84F8CA201E517D6D00DBF008 /* ProjectPhaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectPhaseCell.h; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84787AE41E693142000E2A42 /* Crashlytics.framework in Frameworks */,
+				84787AE31E693142000E2A42 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +229,8 @@
 		5A1804C71E449245004B7356 /* mining iQ */ = {
 			isa = PBXGroup;
 			children = (
+				84787AE11E693142000E2A42 /* Fabric.framework */,
+				84787AE21E693142000E2A42 /* Crashlytics.framework */,
 				821AE9B61E5EB0A500105AF1 /* Loader */,
 				82F7E1F31E547AF100CE0E5B /* miningIQ.entitlements */,
 				82F7E1F01E543EE500CE0E5B /* DefineHeader */,
@@ -548,6 +556,7 @@
 				5A1804C11E449245004B7356 /* Sources */,
 				5A1804C21E449245004B7356 /* Frameworks */,
 				5A1804C31E449245004B7356 /* Resources */,
+				84787ADC1E692FA2000E2A42 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -618,6 +627,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84787ADC1E692FA2000E2A42 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run ef392b492f8d7591ccb451e46a9accd8fb616699 f1993e98f4b6bd6d629a12e99982f4f9c30a6538ac8650caa83be238c8c1c594";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5A1804C11E449245004B7356 /* Sources */ = {
@@ -778,6 +803,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "mining iQ/miningIQ.entitlements";
 				DEVELOPMENT_TEAM = 8L9ASULL6N;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+				);
 				INFOPLIST_FILE = "mining iQ/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -792,6 +824,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "mining iQ/miningIQ.entitlements";
 				DEVELOPMENT_TEAM = 8L9ASULL6N;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+					"$(PROJECT_DIR)/mining\\ iQ",
+				);
 				INFOPLIST_FILE = "mining iQ/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
