@@ -64,12 +64,10 @@
 }
 - (IBAction)addNewReminder:(id)sender {
     
-    NSLog(@"*************");
-    
+ 
     addReminderViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addReminderViewController"];
-    
     [self.navigationController pushViewController:projdetVC animated:YES];
-    
+
     
 }
 
