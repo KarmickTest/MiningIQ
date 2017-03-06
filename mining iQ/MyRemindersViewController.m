@@ -76,14 +76,14 @@
     
     
     spinnerView.hidden = NO;
-    NSString *userId= @"244";
-   // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+   // NSString *userId= @"244";
+    NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&limit_start=%@&num_records=%@",userId,startVal,limitVal];
     NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getMyyReminders];
     
     [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
         
-        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        NSLog(@"testResult..%@",testResult);
         
         
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
@@ -143,6 +143,12 @@
     [cell.deleteBtn addTarget:self action:@selector(removeReminder:) forControlEvents:UIControlEventTouchUpInside];
     cell.markAsCompletedbtn.tag = indexPath.row;
     [cell.markAsCompletedbtn addTarget:self action:@selector(markAsCompleted:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if( [[[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"done"] boolValue] == 1){
+    
+        cell.markAsCompletedbtn.hidden = YES;
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -173,8 +179,8 @@
     NSLog(@"Tag : %ld", (long)sender.tag);
     
     spinnerView.hidden = NO;
-    NSString *userId= @"244";
-    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    //NSString *userId= @"244";
+    NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     
     //[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]
     NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&reminderid=%@",userId,[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]];
@@ -182,17 +188,12 @@
     
     [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
         
-        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
-        
         
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
             spinnerView.hidden = YES;
-            [self.myReminderTbl beginUpdates];
-            
-            NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:sender.tag inSection:0],nil];
-            [self.myReminderTbl deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];[self.myReminderTbl endUpdates];
-            
+            sender.userInteractionEnabled = NO;
+//            [self getAllReminderListing:@"0" limitVal:@"50"];
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
         {
@@ -207,10 +208,10 @@
 - (void) removeReminder:(UIButton *) sender {
     
     NSLog(@"Tag : %ld", (long)sender.tag);
-    
+    sender.userInteractionEnabled = NO;
     spinnerView.hidden = NO;
-    NSString *userId= @"244";
-    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+   // NSString *userId= @"244";
+    NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     
     //[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]
     NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&reminderid=%@",userId,[[newReminderListArray objectAtIndex:sender.tag] objectForKey:@"id"]];
@@ -218,16 +219,19 @@
     
     [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
         
-        NSLog(@"testResult..%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]);
+        NSLog(@"testResult..%@",testResult);
         
         
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
             spinnerView.hidden = YES;
-           [self.myReminderTbl beginUpdates];
             
+            
+           [self.myReminderTbl beginUpdates];
             NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:sender.tag inSection:0],nil];
-            [self.myReminderTbl deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];[self.myReminderTbl endUpdates];
+            [self.myReminderTbl deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+            [newReminderListArray removeObjectAtIndex:sender.tag];
+            [self.myReminderTbl endUpdates];
 
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
