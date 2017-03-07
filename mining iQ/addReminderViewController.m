@@ -22,6 +22,13 @@
     
     _arr_ProjectDetails=[[NSArray alloc]init];
     
+    clear_View=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    clear_View.backgroundColor=[UIColor clearColor];
+    clear_View.alpha=0.6f;
+    
+    [self.view addSubview:clear_View];
+    clear_View.hidden=YES;
+    
     // =========== Adding spinner ==============
     
     spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
@@ -58,6 +65,7 @@
 -(void)getAllProjects
 {
      spinnerView.hidden = NO;
+    clear_View.hidden=NO;
     NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=500"];
     
     NSLog(@"url is : %@",postUrlString);
@@ -70,11 +78,13 @@
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
              spinnerView.hidden = YES;
+            clear_View.hidden=YES;
             _arr_ProjectDetails=[testResult valueForKey:@"details"];
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
         {
             spinnerView.hidden = YES;
+            clear_View.hidden=YES;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -104,7 +114,7 @@
     
     background_View=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     background_View.backgroundColor=[UIColor darkGrayColor];
-    background_View.alpha=0.6f;
+    background_View.alpha=0.8f;
     
     [self.view addSubview:background_View];
     
@@ -148,11 +158,12 @@
     
     
     UITableView *tbl_Project=[[UITableView alloc]initWithFrame:CGRectMake(5, searchField.frame.origin.y+searchField.frame.size.height+10, popUp_View.frame.size.width-10, popUp_View.frame.size.height-(lbl_selectItem.frame.origin.y+lbl_selectItem.frame.size.height+10+40+30))];
-    tbl_Project.backgroundColor=[UIColor grayColor];
+    tbl_Project.backgroundColor=[UIColor whiteColor];
     
     tbl_Project.delegate=self;
     tbl_Project.dataSource=self;
-    
+    tbl_Project.showsHorizontalScrollIndicator=NO;
+    tbl_Project.showsVerticalScrollIndicator=NO;
     
     
     [popUp_View addSubview:tbl_Project];

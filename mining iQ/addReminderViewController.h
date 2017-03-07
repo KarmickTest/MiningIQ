@@ -12,9 +12,12 @@
 {
     UIView *spinnerView;
     UIActivityIndicatorView *spinner;
+    UIView *clear_View;
     
     UIView *background_View;
     UIView *popUp_View;
+    
+    
 }
 - (IBAction)btn_Project:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *ProjectBtn;
