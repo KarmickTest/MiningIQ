@@ -23,5 +23,5 @@
 - (IBAction)btn_Update:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *Update_Btn;
 
-@property (strong,nonatomic) NSArray *arr_ProjectDetails;
+@property (strong,nonatomic) NSMutableArray *arr_ProjectDetails;
 @end
