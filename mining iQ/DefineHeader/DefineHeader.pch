@@ -25,7 +25,7 @@
 #define projectsOfInterestofuser @"projectsofinterestofuser?"
 
 #define ProjectDetails @"getprojectsdetailsbyid/?"
-
+#define getallProjects @"getallprojects?"
 
 #define deleteReminder @"deletereminder?"
 #define markascompletedReminder @"markascompletedreminder?"

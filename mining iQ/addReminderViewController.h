@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface addReminderViewController : UIViewController
+@interface addReminderViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+{
+    UIView *spinnerView;
+    UIActivityIndicatorView *spinner;
+    
+    UIView *background_View;
+    UIView *popUp_View;
+}
+- (IBAction)btn_Project:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *ProjectBtn;
+@property (strong, nonatomic) IBOutlet UITextField *txtFld_Name;
 
+- (IBAction)btn_Update:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *Update_Btn;
+
+@property (strong,nonatomic) NSArray *arr_ProjectDetails;
 @end
