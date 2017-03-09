@@ -10,6 +10,8 @@
 #import "ProjectofInterestCell.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import "Global_Header.h"
+
 
 @interface ProjectofInterestViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -177,6 +179,14 @@
     cell=[tableView dequeueReusableCellWithIdentifier:@"ProjectofInterestCell"];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.demoProjectLbl.text = [[projectOfinterArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
+    
+    cell.btnDelete.tag=indexPath.row;
+    [cell.btnDelete addTarget:self action:@selector(DeleteItem:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.btnProjectDetails.tag=indexPath.row;
+    [cell.btnProjectDetails addTarget:self action:@selector(ProjectInfo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,6 +238,114 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(void)ProjectInfo:(UIButton *)sender
+{
+    ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
+    projdetVC.strID_Carry = [[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"];
+    [self.navigationController pushViewController:projdetVC animated:YES];
+
+}
+
+-(void)DeleteItem:(UIButton *)sender
+{
+    int index = sender.tag;
+    // index = 1234;
+    
+   // http://karmickdev.com/miningiq/Api/deleteprojectofinterest?userid=2311&projectid=366
+    NSLog(@"%@",[[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]);
+    
+    spinnerView.hidden = NO;
+    NSString *userId= @"2311`";
+    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&projectid=%@",userId,[[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]];
+    
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,deleteProjectOfInterest];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            
+            
+            UIAlertController * alert=[UIAlertController
+                                       
+                                       alertControllerWithTitle:@"Status" message:[testResult valueForKey:@"message"]preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* yesButton = [UIAlertAction
+                                        actionWithTitle:@"Ok"
+                                        style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action)
+                                        {
+                                           //What we write here????????**
+                                            
+                                            
+                                            start = @"0";
+                                            limit = @"8";
+                                            [self getAllInterProjectListing:start limitVal:limit];
+
+                                            // call method whatever u need
+                                        }];
+//            UIAlertAction* noButton = [UIAlertAction
+//                                       actionWithTitle:@"No, thanks"
+//                                       style:UIAlertActionStyleDefault
+//                                       handler:^(UIAlertAction * action)
+//                                       {
+//                                           //What we write here????????**
+//                                           
+//                                           
+//                                           NSLog(@"you pressed No, thanks button");
+//                                           // call method whatever u need
+//                                           
+//                                       }];
+            
+            [alert addAction:yesButton];
+           // [alert addAction:noButton];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+            
+            
+            
+            
+//            projectOfinterArray = [[testResult objectForKey:@"details"] mutableCopy];
+//            NSLog(@"testResult..%@",projectOfinterArray);
+//            
+//            
+//            if(projectOfinterArray.count < [limit intValue]){
+//                
+//                self.viewMrBtn.hidden = NO;
+//                
+//            }
+//            int tempStart = [start intValue] + 7;
+//            int tempLimit = [limit intValue] + 8;
+//            
+//            start = [NSString stringWithFormat:@"%d",tempStart];
+//            limit = [NSString stringWithFormat:@"%d",tempLimit];
+//            self.userNameLbl.text = [[projectOfinterArray objectAtIndex:0] objectForKey:@"username"];
+//            [self.Project_TableView reloadData];
+//            NSLog(@"url is : %lu",(unsigned long)projectOfinterArray.count);
+//            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+    } andString:strLoginApi andParam:postUrlString];
+
+    
+    
+    
+}
+
 
 /*
  #pragma mark - Navigation

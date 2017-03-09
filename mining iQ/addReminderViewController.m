@@ -9,7 +9,7 @@
 #import "addReminderViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
-
+#import <CoreData/CoreData.h>
 @interface addReminderViewController ()
 
 @end
@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _arr_ProjectDetails=[[NSArray alloc]init];
+    _arr_ProjectDetails=[[NSMutableArray alloc]init];
     
     clear_View=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     clear_View.backgroundColor=[UIColor clearColor];
@@ -47,6 +47,17 @@
     
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
+    
+    
+    
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    _arr_ProjectDetails = [temArray mutableCopy];
+
+    NSLog(@"*******%lu", (unsigned long)self.arr_ProjectDetails.count);
 
 }
 
@@ -57,16 +68,20 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    if(_arr_ProjectDetails.count == 0){
     [self getAllProjects];
+    }
 }
 
 
 -(void)getAllProjects
 {
      spinnerView.hidden = NO;
+
     clear_View.hidden=NO;
-    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=500"];
+  //  NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=500"];
+
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=2000"];
     
     NSLog(@"url is : %@",postUrlString);
     
@@ -78,8 +93,18 @@
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
              spinnerView.hidden = YES;
+
             clear_View.hidden=YES;
             _arr_ProjectDetails=[testResult valueForKey:@"details"];
+
+          
+            if(_arr_ProjectDetails.count == 0){
+            
+                _arr_ProjectDetails=[[testResult valueForKey:@"details"] mutableCopy];
+                [self saveDataInCoreData:_arr_ProjectDetails];
+            }
+            
+            
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
         {
@@ -197,7 +222,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_arr_ProjectDetails count];
+    return _arr_ProjectDetails.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -207,8 +232,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    // Configure the cell...
-    cell.textLabel.text = [[_arr_ProjectDetails objectAtIndex:indexPath.row] valueForKey:@"projectname"];
+    NSManagedObject *device = [_arr_ProjectDetails objectAtIndex:indexPath.row];
+    NSLog(@"...%@",[device valueForKey:@"projectname"]);
+    cell.textLabel.text = [device valueForKey:@"projectname"];
     cell.textLabel.font = [UIFont systemFontOfSize:11];
     
     return cell;
@@ -238,4 +264,58 @@
     
 }
 
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+- (void)saveDataInCoreData:(NSMutableArray *)arrayOfData {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    // Create a new managed object
+    
+    
+    NSLog(@"****%lu",(unsigned long)arrayOfData.count);
+    
+    for(int i=0; i<arrayOfData.count; i++){
+        
+      NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectDetails" inManagedObjectContext:context];
+    
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"area"]) forKey:@"area"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdeletedornot"]) forKey:@"projectdeletedornot"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"cap_value"]) forKey:@"cap_value"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"citiesname"]) forKey:@"citiesname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"continentname"]) forKey:@"continentname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"countryname"]) forKey:@"countryname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"created"]) forKey:@"created"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"go_live"]) forKey:@"go_live"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"industiesname"]) forKey:@"industiesname"];
+         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"lastseenthisproject"]) forKey:@"lastseenthisproject"];
+         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"mineralname"]) forKey:@"mineralname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"modified"]) forKey:@"modified"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"plantname"]) forKey:@"plantname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdescription"]) forKey:@"projectdescription"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectid"]) forKey:@"projectid"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectname"]) forKey:@"projectname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectphasename"]) forKey:@"projectphasename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectypename"]) forKey:@"projectypename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"provincename"]) forKey:@"provincename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"regionname"]) forKey:@"regionname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"statusname"]) forKey:@"statusname"];
+    }
+    
+
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

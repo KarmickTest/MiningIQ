@@ -16,7 +16,7 @@
 #import "NewsFeedViewController.h"
 #import "ProjectPhaseViewController.h"
 #import "RecentlyUpdatedViewController.h"
-
+#import "ProjectDetailViewController.h"
 
 
 

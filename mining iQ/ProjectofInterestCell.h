@@ -11,4 +11,9 @@
 @interface ProjectofInterestCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *demoProjectLbl;
 
+@property (strong, nonatomic) IBOutlet UIButton *btnDelete;
+@property (strong, nonatomic) IBOutlet UIButton *btnProjectDetails;
+
+
+
 @end

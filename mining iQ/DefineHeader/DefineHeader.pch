@@ -23,6 +23,7 @@
 #define getMyyReminders @"getmyreminders?"
 #define recentlyUpdatedProjects @"recentlyupdatedprojects?"
 #define projectsOfInterestofuser @"projectsofinterestofuser?"
+#define deleteProjectOfInterest @"deleteprojectofinterest?"
 
 #define ProjectDetails @"getprojectsdetailsbyid/?"
 #define getallProjects @"getallprojects?"
@@ -32,4 +33,5 @@
 
 #define deleteReminder @"deletereminder?"
 #define markascompletedReminder @"markascompletedreminder?"
+#define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
 #endif /* DefineHeader_pch */

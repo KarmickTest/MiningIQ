@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16A323" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="ProjectDetails" representedClassName="ProjectDetails" syncable="YES" codeGenerationType="class">
+        <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cap_value" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="citiesname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="continentname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="countryname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="go_live" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="industiesname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastseenthisproject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mineralname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plantname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectdeletedornot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectdescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectphasename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectypename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provincename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="regionname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="statusname" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ProjectDetails" positionX="-63" positionY="-18" width="128" height="360"/>
+    </elements>
 </model>

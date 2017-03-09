@@ -2055,6 +2055,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="btnDelete" destination="i4J-be-85b" id="8IY-0h-VT6"/>
+                                            <outlet property="btnProjectDetails" destination="gHo-IS-uH3" id="Cri-aU-Bhu"/>
                                             <outlet property="demoProjectLbl" destination="7SU-er-S0I" id="8FW-AS-Joc"/>
                                         </connections>
                                     </tableViewCell>

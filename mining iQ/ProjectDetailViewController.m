@@ -65,7 +65,7 @@
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
 
-    
+    _tbl_View.hidden=YES;
 }
 
 - (IBAction)backTapped:(id)sender {
@@ -142,7 +142,7 @@
             // ============================== ============== ============
             
             
-                        
+             _tbl_View.hidden=NO;
             [self.tbl_View reloadData];
             NSLog(@"url is : %lu",(unsigned long)contentArr.count);
             
