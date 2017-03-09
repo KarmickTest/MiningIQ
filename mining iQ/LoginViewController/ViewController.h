@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgotPwdBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (weak, nonatomic) IBOutlet UIButton *showPwdBtn;
-
+@property (strong,nonatomic) NSMutableArray *arr_ProjectDetails;
 @end
 

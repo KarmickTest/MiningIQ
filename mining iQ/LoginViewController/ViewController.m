@@ -10,7 +10,7 @@
 #import "DashBoardViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
-
+#import <CoreData/CoreData.h>
 @interface ViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 {
     BOOL showPwdBool;
@@ -149,18 +149,55 @@
         
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
-            [[NSUserDefaults standardUserDefaults] setValue:[[testResult valueForKey:@"details"] valueForKey:@"user_id"] forKey:@"user_id"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            DashBoardViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DashBoardViewController"];
             
-            CATransition* transition = [CATransition animation];
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-            transition.duration = 0.7f;
-            transition.type =  @"rippleEffect";
-            [self.navigationController.view.layer removeAllAnimations];
-            [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
             
-            [self.navigationController pushViewController:dashBoard animated:YES];
+            NSLog(@"*******%lu", (unsigned long)self.arr_ProjectDetails.count);
+            
+            
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+            dispatch_async(queue, ^{
+                // Perform async operation
+                // Call your method/function here
+                // Example:
+                // NSString *result = [anObject calculateSomething];
+                
+                if(_arr_ProjectDetails.count == 0){
+                    [self getAllProjects];
+                }
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    // Update UI
+                    // Example:
+                    // self.myLabel.text = result;
+                    
+                    [[NSUserDefaults standardUserDefaults] setValue:[[testResult valueForKey:@"details"] valueForKey:@"user_id"] forKey:@"user_id"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    DashBoardViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DashBoardViewController"];
+                    
+                    CATransition* transition = [CATransition animation];
+                    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+                    transition.duration = 0.7f;
+                    transition.type =  @"rippleEffect";
+                    [self.navigationController.view.layer removeAllAnimations];
+                    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+                    
+                    [self.navigationController pushViewController:dashBoard animated:YES];
+                    
+                    
+                    
+                    //loading all projetlist start
+                    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+                    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+                    [fetchRequest setReturnsObjectsAsFaults:NO];
+                    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                    _arr_ProjectDetails = [temArray mutableCopy];
+                    
+                    
+                });
+            });
+            
+            
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
         {
@@ -172,8 +209,87 @@
         
     } andString:strLoginApi andParam:postUrlString];
 }
+-(void)getAllProjects
+{
+    spinnerView.hidden = NO;
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=2000"];
+    
+    NSLog(@"url is : %@",postUrlString);
+    
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getallProjects];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            
+            if(_arr_ProjectDetails.count == 0){
+                
+                _arr_ProjectDetails=[[testResult valueForKey:@"details"] mutableCopy];
+                [self saveDataInCoreData:_arr_ProjectDetails];
+            }
+            
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+        
+    } andString:strLoginApi andParam:postUrlString];
+}
 
-
+- (void)saveDataInCoreData:(NSMutableArray *)arrayOfData {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    // Create a new managed object
+    
+    
+    NSLog(@"****%lu",(unsigned long)arrayOfData.count);
+    
+    for(int i=0; i<arrayOfData.count; i++){
+        
+        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectDetails" inManagedObjectContext:context];
+        
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"area"]) forKey:@"area"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdeletedornot"]) forKey:@"projectdeletedornot"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"cap_value"]) forKey:@"cap_value"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"citiesname"]) forKey:@"citiesname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"continentname"]) forKey:@"continentname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"countryname"]) forKey:@"countryname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"created"]) forKey:@"created"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"go_live"]) forKey:@"go_live"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"industiesname"]) forKey:@"industiesname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"lastseenthisproject"]) forKey:@"lastseenthisproject"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"mineralname"]) forKey:@"mineralname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"modified"]) forKey:@"modified"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"plantname"]) forKey:@"plantname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdescription"]) forKey:@"projectdescription"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectid"]) forKey:@"projectid"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectname"]) forKey:@"projectname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectphasename"]) forKey:@"projectphasename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectypename"]) forKey:@"projectypename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"provincename"]) forKey:@"provincename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"regionname"]) forKey:@"regionname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"statusname"]) forKey:@"statusname"];
+    }
+    
+    
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
@@ -261,6 +377,14 @@
     {
         [sender setBackgroundImage:[self imageWithColor:[UIColor colorWithRed:0.0f/255.0f green:145.0f/255.0f blue:239.0f/255.0f alpha:1]] forState:UIControlStateHighlighted];
     }
+}
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
 }
 
 
