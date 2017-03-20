@@ -13,6 +13,7 @@
 @interface RecentlyUpdatedViewController : UIViewController
 {
     RecentlyUpdatedCell *cell;
+    NSMutableArray*arr_ProjectDetails;
 }
 @property (weak, nonatomic) IBOutlet UIButton *viewMrBtn;
 @property (weak, nonatomic) IBOutlet UITableView *recentlyUpdateTbl;

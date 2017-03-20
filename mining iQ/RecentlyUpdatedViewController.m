@@ -9,6 +9,7 @@
 #import "RecentlyUpdatedViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import <CoreData/CoreData.h>
 @interface RecentlyUpdatedViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
     NSString *start;
@@ -47,12 +48,32 @@
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
     
+    //loading all projetlist start
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    arr_ProjectDetails = [temArray mutableCopy];
+
+    for (NSDictionary *dic in arr_ProjectDetails)
+    {
+        if ([[dic valueForKey:@"recentlyupdatedproject"] boolValue]==1)
+        {
+            [newRecentlyUpdateAry addObject:dic];
+           // NSLog(@"%@",[[newRecentlyUpdateAry objectAtIndex:0]valueForKey:@"projectname"]);
+            
+        }
+    }
+
+    
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self getAllReminderListing:start limitVal:limit];
     
+      //  [self.recentlyUpdateTbl reloadData];
     
+  //  [self getAllReminderListing:start limitVal:limit];
     
 }
 -(void)getAllReminderListing:(NSString *)startVal limitVal:(NSString *)limitVal{
@@ -132,11 +153,16 @@
     {
         cell.cellBackView.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1];
     }
-    NSLog(@"........%@",[[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"]);
+    NSLog(@"........%@",[[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"projectname"]);
     
     
-    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"];
-    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"datemodified"];
+//    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"];
+//    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"datemodified"];
+    
+    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"projectname"];
+    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"modified"];
+
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -160,6 +186,14 @@
 //}
 
 
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
 
 
 

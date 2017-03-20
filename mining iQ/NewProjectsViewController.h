@@ -12,6 +12,8 @@
 @interface NewProjectsViewController : UIViewController
 {
     NewProjectsTableViewCell *cell;
+    
+    NSMutableArray*arr_ProjectDetails;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

@@ -11,6 +11,7 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 #import "Global_Header.h"
+#import <CoreData/CoreData.h>
 
 
 @interface ProjectofInterestViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -54,9 +55,43 @@
     [spinnerView addSubview:spinner];
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
+    
+    
+    //loading all projetlist start
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    arr_ProjectDetails = [temArray mutableCopy];
+    
+    for (NSDictionary *dic in arr_ProjectDetails)
+    {
+        if ([[dic valueForKey:@"projectofinterest"] boolValue]==1)
+        {
+            [projectOfinterArray addObject:dic];
+            NSLog(@"%@",[[projectOfinterArray objectAtIndex:0]valueForKey:@"projectname"]);
+            
+        }
+    }
 
-    [self getAllInterProjectListing:start limitVal:limit];
+    
+
+ //   [self getAllInterProjectListing:start limitVal:limit];
 }
+
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
+
+
 -(void)getAllInterProjectListing:(NSString *)startVal limitVal:(NSString *)limitVal{
     
     
@@ -178,7 +213,7 @@
 {
     cell=[tableView dequeueReusableCellWithIdentifier:@"ProjectofInterestCell"];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    cell.demoProjectLbl.text = [[projectOfinterArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
+    cell.demoProjectLbl.text = [[projectOfinterArray objectAtIndex:indexPath.row] valueForKey:@"projectname"];
     
     cell.btnDelete.tag=indexPath.row;
     [cell.btnDelete addTarget:self action:@selector(DeleteItem:) forControlEvents:UIControlEventTouchUpInside];
@@ -243,7 +278,7 @@
 -(void)ProjectInfo:(UIButton *)sender
 {
     ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
-    projdetVC.strID_Carry = [[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"];
+    projdetVC.strID_Carry = [[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]   ;
     [self.navigationController pushViewController:projdetVC animated:YES];
 
 }

@@ -10,6 +10,8 @@
 #import "ProjectDetailViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import <CoreData/CoreData.h>
+
 @interface NewProjectsViewController ()<UITableViewDelegate, UITableViewDataSource>{
 
     NSString *start;
@@ -50,12 +52,41 @@
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
     
+    
+    //loading all projetlist start
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    arr_ProjectDetails = [temArray mutableCopy];
+
+        for (NSDictionary *dic in arr_ProjectDetails)
+        {
+            if ([[dic valueForKey:@"newproject"] boolValue]==1)
+            {
+                [newProjectListArray addObject:dic];
+            }
+        }
+
+    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
     
-    [self getAllProjectListing:start limitVal:limit];
+  //  [self getAllProjectListing:start limitVal:limit];
 }
+
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
 
 -(void)getAllProjectListing:(NSString *)startVal limitVal:(NSString *)limitVal{
 
@@ -170,8 +201,13 @@
     {
         cell.cellBackView.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1];
     }
-    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created_date"];
+//    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+//    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created_date"];
+    
+    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
+    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created"];
+
+    
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

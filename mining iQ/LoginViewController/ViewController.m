@@ -72,8 +72,30 @@
     
     self.userNameTxt = [self roundRadiousTxt:self.userNameTxt radius:2];
     self.passwordTxt = [self roundRadiousTxt:self.passwordTxt radius:2];
+    
+    
+    //loading all projetlist start
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    _arr_ProjectDetails = [temArray mutableCopy];
+    
+
+    
+    
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+//    if(_arr_ProjectDetails.count == 0){
+//        [self getAllProjects];
+//    }
+    
+    
+}
 -(UIButton *)roundRadious:(UIButton *)button radius:(NSInteger)radius
 {
     button.layer.cornerRadius = 2.0f;
@@ -151,7 +173,7 @@
         {
             
             
-            NSLog(@"*******%lu", (unsigned long)self.arr_ProjectDetails.count);
+          //  NSLog(@"*******%lu", (unsigned long)self.arr_ProjectDetails.count);
             
             
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
@@ -188,7 +210,7 @@
                     //loading all projetlist start
                     NSMutableArray* temArray = [[NSMutableArray alloc] init];
                     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
                     [fetchRequest setReturnsObjectsAsFaults:NO];
                     temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
                     _arr_ProjectDetails = [temArray mutableCopy];
@@ -212,11 +234,12 @@
 -(void)getAllProjects
 {
     spinnerView.hidden = NO;
-    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=2000"];
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=2311&limit_start=0&num_records=100&datetime=%@&localtimezone=%@",@"",@"",nil];
     
     NSLog(@"url is : %@",postUrlString);
+    // getallProjects
     
-    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getallProjects];
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getAllProjectListWithType];
     
     [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
         
@@ -248,36 +271,109 @@
 - (void)saveDataInCoreData:(NSMutableArray *)arrayOfData {
     NSManagedObjectContext *context = [self managedObjectContext];
     
-    // Create a new managed object
+    // Create a new managed object  ProjectDetails
+    
+    NSError *error1;
     
     
     NSLog(@"****%lu",(unsigned long)arrayOfData.count);
     
     for(int i=0; i<arrayOfData.count; i++){
         
-        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectDetails" inManagedObjectContext:context];
+        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectListWithType" inManagedObjectContext:context];
         
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"area"]) forKey:@"area"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdeletedornot"]) forKey:@"projectdeletedornot"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"cap_value"]) forKey:@"cap_value"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"citiesname"]) forKey:@"citiesname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"continentname"]) forKey:@"continentname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"countryname"]) forKey:@"countryname"];
+        
+        
         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"created"]) forKey:@"created"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"go_live"]) forKey:@"go_live"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"industiesname"]) forKey:@"industiesname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"lastseenthisproject"]) forKey:@"lastseenthisproject"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"mineralname"]) forKey:@"mineralname"];
+        
+        
+        
         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"modified"]) forKey:@"modified"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"plantname"]) forKey:@"plantname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdescription"]) forKey:@"projectdescription"];
+        
+         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"newproject"]) forKey:@"newproject"];
+        
+         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"others"]) forKey:@"others"];
+        
+        
+        
         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectid"]) forKey:@"projectid"];
+        
         [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectname"]) forKey:@"projectname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectphasename"]) forKey:@"projectphasename"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectypename"]) forKey:@"projectypename"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"provincename"]) forKey:@"provincename"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"regionname"]) forKey:@"regionname"];
-        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"statusname"]) forKey:@"statusname"];
+        
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectofinterest"]) forKey:@"projectofinterest"];
+        
+        
+        
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"recentlyupdatedproject"]) forKey:@"recentlyupdatedproject"];
+        
+        
+        
+        // ======
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"projectscope"]
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error1];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+        
+        
+        
+        [newDevice setValue:jsonString forKey:@"projectscope"];
+        
+        // ===========================
+        
+        NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"commentary"]
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error1];
+        NSString *jsonString1 = [[NSString alloc] initWithData:jsonData1 encoding:NSUTF8StringEncoding];
+
+        
+
+        [newDevice setValue:jsonString1 forKey:@"commentary"];
+        
+        // =====================
+        
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"reminders"]
+                                                            options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                              error:&error1];
+        NSString *jsonString2 = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        
+
+        
+
+        [newDevice setValue:jsonString2 forKey:@"reminders"];
+        
+        // ============ =====
+        
+        NSData *jsonData3 = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"mineowners"]
+                                                            options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                              error:&error1];
+        NSString *jsonString3 = [[NSString alloc] initWithData:jsonData3 encoding:NSUTF8StringEncoding];
+
+        
+
+        [newDevice setValue:jsonString3 forKey:@"mineowners"];
+        
+        // ============ = =================
+
+        NSData *jsonData4 = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"projectsuppliers"]
+                                                            options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                              error:&error1];
+        NSString *jsonString4 = [[NSString alloc] initWithData:jsonData4 encoding:NSUTF8StringEncoding];
+    
+        
+        [newDevice setValue:jsonString4 forKey:@"projectsuppliers"];
+        
+        // ========================================
+        
+        NSData *jsonData5 = [NSJSONSerialization dataWithJSONObject:[[arrayOfData objectAtIndex:i] objectForKey:@"projectsuppliers"]
+                                                            options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                              error:&error1];
+        NSString *jsonString5 = [[NSString alloc] initWithData:jsonData5 encoding:NSUTF8StringEncoding];
+        
+        
+        [newDevice setValue:jsonString5 forKey:@"projectengineers"];
+        
+        // =============================== =======
     }
     
     

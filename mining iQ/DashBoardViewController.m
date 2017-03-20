@@ -16,6 +16,9 @@
 #import "Global_Header.h"
 #import "ViewController.h"
 #import "ProjectofInterestViewController.h"
+#import <CoreData/CoreData.h>
+#import "Singelton.h"
+#import "DefineHeader.pch"
 
 
 #define FULLHEIGHT [UIScreen mainScreen].bounds.size.height
@@ -85,7 +88,82 @@
     UIPanGestureRecognizer *pangesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
     [objMenuView setUserInteractionEnabled:YES];
     [objMenuView addGestureRecognizer:pangesture];
+    
+    
+    
+//    //loading all projetlist start
+//    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+//    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+//    [fetchRequest setReturnsObjectsAsFaults:NO];
+//    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    _arr_ProjectDetails = [temArray mutableCopy];
+
+    
+    spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
+    spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
+    spinnerView.layer.cornerRadius = 8.0f;
+    spinnerView.clipsToBounds = YES;
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.frame = CGRectMake(round((spinnerView.frame.size.width - 25) / 2), round((spinnerView.frame.size.height - 25) / 2), 25, 25);
+    spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
+    
+    [spinner startAnimating];
+    
+    [spinnerView addSubview:spinner];
+    
+    backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.2];
+    [backgroundView addSubview:spinnerView];
+    
+    [self.view addSubview:backgroundView];
+    backgroundView.hidden = YES;
+
+    
 }
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+   
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(queue, ^{
+        // Perform async operation
+        // Call your method/function here
+        // Example:
+        // NSString *result = [anObject calculateSomething];
+        
+        if(_arr_ProjectDetails.count == 0){
+            [self getAllProjects];
+        }
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            // Update UI
+            // Example:
+            // self.myLabel.text = result;
+            
+            
+            //loading all projetlist start
+            NSMutableArray* temArray = [[NSMutableArray alloc] init];
+            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+            [fetchRequest setReturnsObjectsAsFaults:NO];
+            temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+            _arr_ProjectDetails = [temArray mutableCopy];
+            
+            
+        });
+    });
+
+    
+    
+    
+}
+
+
 - (IBAction)openMenu:(id)sender {
     [self drawerMenuOpenClose];
    
@@ -529,6 +607,101 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)getAllProjects
+{
+    spinnerView.hidden = NO;
+    NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=2000"];
+    
+    NSLog(@"url is : %@",postUrlString);
+    
+    NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,getallProjects];
+    
+    [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+        
+        
+        if ([[testResult valueForKey:@"success"] boolValue] == 1)
+        {
+            spinnerView.hidden = YES;
+            
+            if(_arr_ProjectDetails.count == 0){
+                
+                _arr_ProjectDetails=[[testResult valueForKey:@"details"] mutableCopy];
+                [self saveDataInCoreData:_arr_ProjectDetails];
+            }
+            
+            
+        }
+        else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+        {
+            spinnerView.hidden = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+        
+    } andString:strLoginApi andParam:postUrlString];
+}
+
+
+- (void)saveDataInCoreData:(NSMutableArray *)arrayOfData {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    // Create a new managed object
+    
+    
+    NSLog(@"****%lu",(unsigned long)arrayOfData.count);
+    
+    for(int i=0; i<arrayOfData.count; i++){
+        
+        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectDetails" inManagedObjectContext:context];
+        
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"area"]) forKey:@"area"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdeletedornot"]) forKey:@"projectdeletedornot"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"cap_value"]) forKey:@"cap_value"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"citiesname"]) forKey:@"citiesname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"continentname"]) forKey:@"continentname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"countryname"]) forKey:@"countryname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"created"]) forKey:@"created"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"go_live"]) forKey:@"go_live"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"industiesname"]) forKey:@"industiesname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"lastseenthisproject"]) forKey:@"lastseenthisproject"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"mineralname"]) forKey:@"mineralname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"modified"]) forKey:@"modified"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"plantname"]) forKey:@"plantname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectdescription"]) forKey:@"projectdescription"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectid"]) forKey:@"projectid"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectname"]) forKey:@"projectname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectphasename"]) forKey:@"projectphasename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"projectypename"]) forKey:@"projectypename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"provincename"]) forKey:@"provincename"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"regionname"]) forKey:@"regionname"];
+        [newDevice setValue:NULL_TO_NIL([[arrayOfData objectAtIndex:i] objectForKey:@"statusname"]) forKey:@"statusname"];
+    }
+    
+    
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
 
 /*
 #pragma mark - Navigation

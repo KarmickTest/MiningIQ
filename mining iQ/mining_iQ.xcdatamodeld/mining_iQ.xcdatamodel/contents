@@ -23,7 +23,24 @@
         <attribute name="regionname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="statusname" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="ProjectListWithType" representedClassName="ProjectListWithType" syncable="YES" codeGenerationType="class">
+        <attribute name="commentary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mineowners" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="newproject" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="others" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="projectengineers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectofinterest" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="projectscope" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectsuppliers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recentlyupdatedproject" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminders" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="ProjectDetails" positionX="-63" positionY="-18" width="128" height="360"/>
+        <element name="ProjectListWithType" positionX="-63" positionY="135" width="128" height="255"/>
     </elements>
 </model>
