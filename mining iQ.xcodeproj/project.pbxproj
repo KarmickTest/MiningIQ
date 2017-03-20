@@ -51,6 +51,15 @@
 		82F7E1F21E543FF500CE0E5B /* DefineHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = 82F7E1F11E543EFD00CE0E5B /* DefineHeader.pch */; };
 		8408ED201E4B1B8B00A014F5 /* MyRemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408ED1F1E4B1B8A00A014F5 /* MyRemindersViewController.m */; };
 		8408ED251E4B383600A014F5 /* MyRemindersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408ED241E4B383600A014F5 /* MyRemindersCell.m */; };
+		840F07D51E7FED6A0066E582 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840F07D41E7FED6A0066E582 /* CoreGraphics.framework */; };
+		840F07D71E7FED880066E582 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840F07D61E7FED880066E582 /* QuartzCore.framework */; };
+		840F07D91E7FEE1C0066E582 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840F07D81E7FEE1C0066E582 /* Foundation.framework */; };
+		840F07DB1E7FEE260066E582 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840F07DA1E7FEE260066E582 /* UIKit.framework */; };
+		840F07DE1E7FEE6F0066E582 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F07DC1E7FEE6F0066E582 /* CKCalendarView.m */; };
+		840F07E41E7FEEB00066E582 /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E01E7FEEB00066E582 /* right_arrow@2x.png */; };
+		840F07E51E7FEEB00066E582 /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E11E7FEEB00066E582 /* right_arrow.png */; };
+		840F07E61E7FEEB00066E582 /* left_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E21E7FEEB00066E582 /* left_arrow@2x.png */; };
+		840F07E71E7FEEB00066E582 /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E31E7FEEB00066E582 /* left_arrow.png */; };
 		84787AE31E693142000E2A42 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE11E693142000E2A42 /* Fabric.framework */; };
 		84787AE41E693142000E2A42 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE21E693142000E2A42 /* Crashlytics.framework */; };
 		84AFFD231E4E00F200DD8726 /* RecentlyUpdatedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFFD221E4E00F200DD8726 /* RecentlyUpdatedCell.m */; };
@@ -135,6 +144,16 @@
 		8408ED1F1E4B1B8A00A014F5 /* MyRemindersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemindersViewController.m; sourceTree = "<group>"; };
 		8408ED231E4B383600A014F5 /* MyRemindersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemindersCell.h; sourceTree = "<group>"; };
 		8408ED241E4B383600A014F5 /* MyRemindersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemindersCell.m; sourceTree = "<group>"; };
+		840F07D41E7FED6A0066E582 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		840F07D61E7FED880066E582 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		840F07D81E7FEE1C0066E582 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		840F07DA1E7FEE260066E582 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		840F07DC1E7FEE6F0066E582 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
+		840F07DD1E7FEE6F0066E582 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
+		840F07E01E7FEEB00066E582 /* right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_arrow@2x.png"; sourceTree = "<group>"; };
+		840F07E11E7FEEB00066E582 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
+		840F07E21E7FEEB00066E582 /* left_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_arrow@2x.png"; sourceTree = "<group>"; };
+		840F07E31E7FEEB00066E582 /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
 		84607D8C1E4DFC6B0088F452 /* Global_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global_Header.h; sourceTree = "<group>"; };
 		84787AE11E693142000E2A42 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		84787AE21E693142000E2A42 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -149,6 +168,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840F07DB1E7FEE260066E582 /* UIKit.framework in Frameworks */,
+				840F07D91E7FEE1C0066E582 /* Foundation.framework in Frameworks */,
+				840F07D71E7FED880066E582 /* QuartzCore.framework in Frameworks */,
+				840F07D51E7FED6A0066E582 /* CoreGraphics.framework in Frameworks */,
 				84787AE41E693142000E2A42 /* Crashlytics.framework in Frameworks */,
 				84787AE31E693142000E2A42 /* Fabric.framework in Frameworks */,
 			);
@@ -218,6 +241,7 @@
 			children = (
 				5A1804C71E449245004B7356 /* mining iQ */,
 				5A1804C61E449245004B7356 /* Products */,
+				840F07D31E7FED690066E582 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,6 +295,8 @@
 			children = (
 				5A533A1D1E68399D0078A773 /* addReminderViewController.h */,
 				5A533A1E1E68399D0078A773 /* addReminderViewController.m */,
+				840F07DC1E7FEE6F0066E582 /* CKCalendarView.m */,
+				840F07DD1E7FEE6F0066E582 /* CKCalendarView.h */,
 			);
 			name = Addreminderviewcontroller;
 			sourceTree = "<group>";
@@ -295,6 +321,7 @@
 		5A8F67A41E48B15C005EEF8A /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				840F07DF1E7FEE8B0066E582 /* resource_image */,
 				5A533A1C1E6839480078A773 /* Addreminderviewcontroller */,
 				821AE9BA1E5EB14800105AF1 /* ProjectListingUnderPhaseViewController */,
 				82F7E1EB1E54387F00CE0E5B /* LoginViewController */,
@@ -541,6 +568,28 @@
 			name = MyRemindersCell;
 			sourceTree = "<group>";
 		};
+		840F07D31E7FED690066E582 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				840F07DA1E7FEE260066E582 /* UIKit.framework */,
+				840F07D81E7FEE1C0066E582 /* Foundation.framework */,
+				840F07D61E7FED880066E582 /* QuartzCore.framework */,
+				840F07D41E7FED6A0066E582 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		840F07DF1E7FEE8B0066E582 /* resource_image */ = {
+			isa = PBXGroup;
+			children = (
+				840F07E01E7FEEB00066E582 /* right_arrow@2x.png */,
+				840F07E11E7FEEB00066E582 /* right_arrow.png */,
+				840F07E21E7FEEB00066E582 /* left_arrow@2x.png */,
+				840F07E31E7FEEB00066E582 /* left_arrow.png */,
+			);
+			name = resource_image;
+			sourceTree = "<group>";
+		};
 		84AFFD241E4E00FA00DD8726 /* RecentlyUpdatedCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,7 +641,7 @@
 					5A1804C41E449245004B7356 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 8L9ASULL6N;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -632,12 +681,16 @@
 				5A1804DB1E449245004B7356 /* LaunchScreen.storyboard in Resources */,
 				820E3BC21E4B4AC10071F56F /* open-sans.light.ttf in Resources */,
 				820E3BC01E4B4AC10071F56F /* open-sans.extrabold.ttf in Resources */,
+				840F07E61E7FEEB00066E582 /* left_arrow@2x.png in Resources */,
+				840F07E71E7FEEB00066E582 /* left_arrow.png in Resources */,
 				820E3BC31E4B4AC10071F56F /* open-sans.semibold.ttf in Resources */,
+				840F07E41E7FEEB00066E582 /* right_arrow@2x.png in Resources */,
 				820E3BC11E4B4AC10071F56F /* open-sans.italic.ttf in Resources */,
 				820E3BBF1E4B4AC10071F56F /* open-sans.bold.ttf in Resources */,
 				5A1804D81E449245004B7356 /* Assets.xcassets in Resources */,
 				5A1804D31E449245004B7356 /* Main.storyboard in Resources */,
 				4EBF0F311E4DF0E000F71E16 /* MenuHeaderCell.xib in Resources */,
+				840F07E51E7FEEB00066E582 /* right_arrow.png in Resources */,
 				4EBF0F331E4DF0E000F71E16 /* MenuListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,6 +748,7 @@
 				82F7E1EE1E5438E700CE0E5B /* ViewController.m in Sources */,
 				821AE9B91E5EB0B200105AF1 /* Loader.m in Sources */,
 				8293AB2F1E49CFC80042D0C6 /* NewsFeedTableViewCell.m in Sources */,
+				840F07DE1E7FEE6F0066E582 /* CKCalendarView.m in Sources */,
 				820E3BB21E4B000B0071F56F /* DropDownTableViewCell.m in Sources */,
 				5A1804CA1E449245004B7356 /* main.m in Sources */,
 				820E3BB81E4B00400071F56F /* TextFieldTableViewCell.m in Sources */,
@@ -745,10 +799,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8L9ASULL6N;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -768,6 +823,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "9bb0bb08-ea05-4675-b738-0ae56f412d3f";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -793,10 +849,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8L9ASULL6N;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -809,6 +866,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "9bb0bb08-ea05-4675-b738-0ae56f412d3f";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -819,6 +877,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "mining iQ/miningIQ.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
 				DEVELOPMENT_TEAM = 8L9ASULL6N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -830,8 +890,10 @@
 				INFOPLIST_FILE = "mining iQ/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mining.miningIQ;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mi.miningIQ;
 				PRODUCT_NAME = miningIQ;
+				PROVISIONING_PROFILE = "9bb0bb08-ea05-4675-b738-0ae56f412d3f";
+				PROVISIONING_PROFILE_SPECIFIER = miningIQ_dis;
 			};
 			name = Debug;
 		};
@@ -840,6 +902,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "mining iQ/miningIQ.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karmick Solutions Pvt. Ltd. (8L9ASULL6N)";
 				DEVELOPMENT_TEAM = 8L9ASULL6N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -851,8 +915,10 @@
 				INFOPLIST_FILE = "mining iQ/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mining.miningIQ;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mi.miningIQ;
 				PRODUCT_NAME = miningIQ;
+				PROVISIONING_PROFILE = "9bb0bb08-ea05-4675-b738-0ae56f412d3f";
+				PROVISIONING_PROFILE_SPECIFIER = miningIQ_dis;
 			};
 			name = Release;
 		};

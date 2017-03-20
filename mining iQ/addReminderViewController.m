@@ -10,6 +10,8 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 #import <CoreData/CoreData.h>
+
+
 @interface addReminderViewController ()
 
 @end
@@ -28,6 +30,10 @@
     
     [self.view addSubview:clear_View];
     clear_View.hidden=YES;
+    
+    _textView_Description.text = @"Description";
+    _textView_Description.textColor=[UIColor lightGrayColor];
+
     
     // =========== Adding spinner ==============
     
@@ -199,6 +205,47 @@
     [tbl_Project reloadData];
 }
 - (IBAction)btn_Update:(id)sender {
+    
+    
+    background_View=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    background_View.backgroundColor=[UIColor clearColor];
+    //background_View.alpha=0.8f;
+    
+    [self.view addSubview:background_View];
+    
+    
+    
+    calendar = [[CKCalendarView alloc] initWithStartDay:startMonday];
+    self.calendar = calendar;
+    calendar.delegate = self;
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    self.minimumDate = [self.dateFormatter dateFromString:@"20/09/2012"];
+    
+    self.disabledDates = @[
+                           [self.dateFormatter dateFromString:@"05/01/2013"],
+                           [self.dateFormatter dateFromString:@"06/01/2013"],
+                           [self.dateFormatter dateFromString:@"07/01/2013"]
+                           ];
+    
+    calendar.onlyShowCurrentMonth = NO;
+    calendar.adaptHeightToNumberOfWeeksInMonth = YES;
+    
+    calendar.frame = CGRectMake((self.view.frame.size.width-300)/2, (self.view.frame.size.height-320)/2, 300, 320);
+    
+   // [self.view addSubview:calendar];
+     [background_View addSubview:calendar];
+    
+//    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(calendar.frame) + 4, self.view.bounds.size.width, 24)];
+//    [self.view addSubview:self.dateLabel];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange) name:NSCurrentLocaleDidChangeNotification object:nil];
+
+    
+    
 }
 
 -(void)PopupClose{
@@ -245,7 +292,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.ProjectBtn setTitle:[[_arr_ProjectDetails objectAtIndex:indexPath.row] valueForKey:@"projectname"] forState:UIControlStateNormal];
-    
+    self.str_Project_ID=[[_arr_ProjectDetails objectAtIndex:indexPath.row] valueForKey:@"projectid"];
     
     NSLog(@"Name: %@",[[_arr_ProjectDetails objectAtIndex:indexPath.row] valueForKey:@"projectname"]);
     NSLog(@"ID: %@",[[_arr_ProjectDetails objectAtIndex:indexPath.row] valueForKey:@"projectid"]);
@@ -317,5 +364,191 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+//  Integrating CK-Calender
+// =================================
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
+}
+
+- (void)localeDidChange {
+    [self.calendar setLocale:[NSLocale currentLocale]];
+}
+
+- (BOOL)dateIsDisabled:(NSDate *)date {
+    for (NSDate *disabledDate in self.disabledDates) {
+        if ([disabledDate isEqualToDate:date]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+#pragma mark -
+#pragma mark - CKCalendarDelegate
+
+- (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
+    // TODO: play with the coloring if we want to...
+    if ([self dateIsDisabled:date]) {
+        dateItem.backgroundColor = [UIColor redColor];
+        dateItem.textColor = [UIColor whiteColor];
+    }
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willSelectDate:(NSDate *)date {
+    return ![self dateIsDisabled:date];
+}
+
+- (void)calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
+    self.dateLabel.text = [self.dateFormatter stringFromDate:date];
+    
+    [self.Update_Btn setTitle:[self.dateFormatter stringFromDate:date] forState:UIControlStateNormal];
+    
+    [self.dateFormatter setDateFormat:@"yyyy-mm-dd"];
+    self.str_Date=[self.dateFormatter stringFromDate:date];
+    
+    [background_View removeFromSuperview];
+    [calendar removeFromSuperview];
+    
+    
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willChangeToMonth:(NSDate *)date {
+    if ([date laterDate:self.minimumDate] == date) {
+        self.calendar.backgroundColor = [UIColor blueColor];
+        return YES;
+    } else {
+        self.calendar.backgroundColor = [UIColor redColor];
+        return NO;
+    }
+}
+
+- (void)calendar:(CKCalendarView *)calendar didLayoutInRect:(CGRect)frame {
+    NSLog(@"calendar layout: %@", NSStringFromCGRect(frame));
+}
+
+
+
+// TextView Delegates
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        NSLog(@"Return pressed, do whatever you like here");
+         [textView resignFirstResponder];
+        return NO; // or true, whetever you's like
+    }
+    
+    return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textField {
+    
+    if ([textField.text isEqualToString:@"Description"]) {
+        textField.text = @"";
+        textField.textColor=[UIColor blackColor];
+    }
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textField {
+    if ([textField.text isEqualToString:@""]) {
+        textField.text = @"Description";
+        textField.textColor=[UIColor lightGrayColor];
+    }
+}
+
+
+- (IBAction)Btn_Submit:(id)sender {
+    
+    
+    if ([self.str_Project_ID isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please select a project." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if([self.txtFld_Name.text isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please give a name." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if ([self.textView_Description.text isEqualToString:@""] || [self.textView_Description.text isEqualToString:@"Description"])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please provide a project description." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if ([self.str_Date isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please select a date." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        
+        spinnerView.hidden = NO;
+        
+        clear_View.hidden=NO;
+        //  NSString *postUrlString=[NSString stringWithFormat:@"limit_start=0&num_records=500"];
+        
+        NSString *postUrlString=[NSString stringWithFormat:@"userid=222&projectid=%@&name=%@&desc=%@&followupdate=%@",self.str_Project_ID,self.txtFld_Name.text,self.textView_Description.text,self.str_Date,nil];
+        
+        NSLog(@"url is : %@",postUrlString);
+        
+        NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,addreminder];
+        
+        [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
+            
+            
+            if ([[testResult valueForKey:@"success"] boolValue] == 1)
+            {
+                spinnerView.hidden = YES;
+                
+                clear_View.hidden=YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status" message:[testResult valueForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [alert show];
+                
+                
+                _textView_Description.text = @"Description";
+                _textView_Description.textColor=[UIColor lightGrayColor];
+                
+                self.txtFld_Name.text=@"";
+                
+                [self.ProjectBtn setTitle:@"" forState:UIControlStateNormal];
+                self.str_Project_ID=@"";
+
+                [self.Update_Btn setTitle:@"" forState:UIControlStateNormal];
+                self.str_Date=@"";
+                
+                
+            }
+            else if ([[testResult valueForKey:@"success"] boolValue] == 0)
+            {
+                spinnerView.hidden = YES;
+                clear_View.hidden=YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something went wrong... please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
+            
+            
+        } andString:strLoginApi andParam:postUrlString];
+        
+
+        
+    }
+    
+    
+    
+    
+    
 }
 @end
