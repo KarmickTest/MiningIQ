@@ -234,7 +234,7 @@
 -(void)getAllProjects
 {
     spinnerView.hidden = NO;
-    NSString *postUrlString=[NSString stringWithFormat:@"userid=2311&limit_start=0&num_records=100&datetime=%@&localtimezone=%@",@"",@"",nil];
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=2311&limit_start=0&num_records=500&datetime=%@&localtimezone=%@",@"",@"",nil];
     
     NSLog(@"url is : %@",postUrlString);
     // getallProjects

@@ -10,6 +10,8 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 #import <CoreData/CoreData.h>
+#import "ProjectDetailViewController.h"
+
 @interface RecentlyUpdatedViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
     NSString *start;
@@ -184,6 +186,17 @@
 //
 //    return  footerView;
 //}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
+    //projdetVC.strID_Carry = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"id"];
+    projdetVC.dic_Carry=[newRecentlyUpdateAry objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:projdetVC animated:YES];
+}
 
 
 - (NSManagedObjectContext *)managedObjectContext {

@@ -10,11 +10,19 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 
+#import "ProjectDetailTableViewCell.h"
+#import "ProjectDetailCommentaryCell.h"
+#import "ProjectDetailsMineownerCell.h"
+#import "ProjectDetailsRemindersCell.h"
+#import "ProjectDetailProjectsuppliersCell.h"
+#import "ProjectDetailProjectengineersCell.h"
+
 @interface ProjectDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 {
     CGSize constraintSize;
     NSMutableArray *contentArr;
     NSMutableArray *tableArr;
+    NSMutableDictionary *expansionDic;
 }
 
 @end
@@ -27,6 +35,8 @@
     // Do any additional setup after loading the view.
     
     tableArr = [[NSMutableArray alloc] initWithObjects:@"COMMENTARY",@"MY REMINDERS", @"MINE OWNERS", @"PROJECT BEGINEERS", @"PROJECT SUPPLIERS", nil];
+    
+    expansionDic = [[NSMutableDictionary alloc] init];
     
     contentArr = [[NSMutableArray alloc] init];
     
@@ -65,7 +75,29 @@
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
 
-    _tbl_View.hidden=YES;
+    _tbl_View.hidden=NO;
+    
+    
+    
+    mArr_test=[[NSMutableArray alloc]init];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectscope"]];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"commentary"]];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"reminders"]];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"mineowners"]];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectsuppliers"]];
+    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectengineers"]];
+    
+    
+   // Arr_key = [[self.dic_Carry allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    Arr_key=[[NSArray alloc]initWithObjects:@"projectscope",@"commentary",@"reminders",@"mineowners",@"projectsuppliers",@"projectengineers", nil];
+   // Arr_key = [self.dic_Carry allKeys];
+    
+//    self.isShowingList = [[NSMutableArray alloc]init];
+//    
+//    for (int i = 0; i < [Arr_key count]; i++) {
+//        [self.isShowingList addObject:[NSNumber numberWithBool:NO]];
+//    }
+    
 }
 
 - (IBAction)backTapped:(id)sender {
@@ -77,7 +109,7 @@
 {
     [super viewDidAppear:animated];
     
-    [self getAllProjectDetailsListing];
+   // [self getAllProjectDetailsListing];
     
 }
 
@@ -158,31 +190,312 @@
     
 }
 
+# pragma mark Table view
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [Arr_key count];
+}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return [Arr_key objectAtIndex:section];
+//}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *viewHeader = [UIView.alloc initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 28)];
+    
+    UILabel *lblTitle =[UILabel.alloc initWithFrame:CGRectMake(6, 10, viewHeader.frame.size.width-12, 25)];
+    
+    [lblTitle setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];//Font style
+    [lblTitle setTextColor:[UIColor blackColor]];
+    [lblTitle setTextAlignment:NSTextAlignmentLeft];
+    [lblTitle setBackgroundColor:[UIColor redColor]];
+    lblTitle.text=[Arr_key objectAtIndex:section];
+    lblTitle.userInteractionEnabled=YES;
+    lblTitle.tag = section;
+    
+    viewHeader.backgroundColor=[UIColor lightGrayColor];
+    
+    [viewHeader addSubview:lblTitle];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerClicked:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [lblTitle addGestureRecognizer:tapGesture];
+
+    
+    
+    return viewHeader;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 44.0f;
+}
+
+
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell = (ProjectDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailTableViewCell"];
     
-    cell.backView.layer.cornerRadius = 4.0;
-    cell.backView.clipsToBounds = YES;
+//    cell.backView.layer.cornerRadius = 4.0;
+//    cell.backView.clipsToBounds = YES;
+//    
+//    cell.contentLbl.text = [tableArr objectAtIndex:indexPath.row];
+//    
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.contentLbl.text = [tableArr objectAtIndex:indexPath.row];
+    // @"projectscope",@"",@"",@"",@"",@"projectengineers",
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    return cell;
+    NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
+    NSError *error;
+    NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+    
+    NSLog(@"%@",sectionDetails);
+    
+    
+    if ([sectionTitle isEqualToString:@"projectscope"])
+    {
+        ProjectDetailTableViewCell *cell = (ProjectDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailTableViewCell"];
+        
+        
+        cell.lbl_scope_projectName.text=[self.dic_Carry valueForKey:@"projectname"];
+        
+        NSString *myString =[self.dic_Carry valueForKey:@"created"];
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        NSDate *yourDate = [dateFormatter dateFromString:myString];
+        dateFormatter.dateFormat = @"MMM-yyyy";
+        NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
+        cell.lbl_scope_date.text=[NSString stringWithFormat:@"%@ : %@",@"Date",[dateFormatter stringFromDate:yourDate]];
+        
+        
+        NSString *str = [sectionDetails valueForKey:@"projectdescription"];
+        
+        constraintSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width - 40, MAXFLOAT);
+        
+        CGRect messageRectLeft = [str boundingRectWithSize:constraintSize options:NSStringDrawingUsesFontLeading
+                                  |NSStringDrawingUsesLineFragmentOrigin|NSLineBreakByWordWrapping|NSLineBreakByCharWrapping attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans" size:12]} context:nil];
+        
+        cell.lbl_scope_description.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 360 + 10 + 20);
+        
+        cell.lbl_scope_description.text = str;
+        [cell.lbl_scope_description sizeToFit];
+
+        
+        
+
+      //  cell.lbl_scope_description.text=NULL_TO_NIL([sectionDetails valueForKey:@"projectdescription"]);
+        
+        cell.lbl_scope_Continent.text=NULL_TO_NIL([sectionDetails valueForKey:@"continentname"]);
+        cell.lbl_scope_Region.text=NULL_TO_NIL([sectionDetails valueForKey:@"regionname"]);
+        cell.lbl_scope_country.text=NULL_TO_NIL([sectionDetails valueForKey:@"countryname"]);
+        cell.lbl_scope_Province.text=NULL_TO_NIL([sectionDetails valueForKey:@"provincename"]);
+        cell.lbl_scope_City.text=NULL_TO_NIL([sectionDetails valueForKey:@"citiesname"]);
+        cell.lbl_scope_Projectarea.text=NULL_TO_NIL([sectionDetails valueForKey:@"area"]);
+        cell.lbl_scope_NearestTown.text=NULL_TO_NIL([sectionDetails valueForKey:@"area"]);
+        cell.lbl_scope_CapitalValue.text=NULL_TO_NIL([sectionDetails valueForKey:@"cap_value"]);
+        cell.lbl_scope_ExplorationValue.text=@"";
+        cell.lbl_scope_Mineral.text=NULL_TO_NIL([sectionDetails valueForKey:@"mineralname"]);
+        cell.lbl_scope_BiMineralPlant.text=@"";
+        cell.lbl_scope_MiningType.text=@"";
+        
+        
+        return cell;
+
+    }
+    else if([sectionTitle isEqualToString:@"commentary"])
+    {
+        ProjectDetailCommentaryCell *cell = (ProjectDetailCommentaryCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailCommentaryCell"];
+        
+        
+        
+        return cell;
+    }
+    else if ([sectionTitle isEqualToString:@"reminders"])
+    {
+        ProjectDetailsRemindersCell *cell = (ProjectDetailsRemindersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailsRemindersCell"];
+        
+        
+        
+        return cell;
+    }
+    else if ([sectionTitle isEqualToString:@"mineowners"])
+    {
+        ProjectDetailsMineownerCell *cell = (ProjectDetailsMineownerCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailsMineownerCell"];
+        
+        
+        
+        return cell;
+    }
+    else if ([sectionTitle isEqualToString:@"projectsuppliers"])
+    {
+        ProjectDetailProjectsuppliersCell *cell = (ProjectDetailProjectsuppliersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailProjectsuppliersCell"];
+        
+        
+        
+        return cell;
+        
+    }
+    else
+    {
+        ProjectDetailProjectengineersCell *cell = (ProjectDetailProjectengineersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailProjectengineersCell"];
+        
+        
+        
+        return cell;
+    }
+    
+    
+    
+    
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0f;
+    NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
+    if ([sectionTitle isEqualToString:@"projectscope"])
+    {
+        
+       return 441.0f;
+    }
+    else
+    {
+        
+       return 44.0f;
+    }
+
+    return 0.0f;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tableArr.count;
+  //  return tableArr.count;
+    
+//    if (isShowingList)
+//    {
+//        isShowingList=NO;
+//        NSString *sectionTitle = [Arr_key objectAtIndex:section];
+//        
+//        NSError *error;
+//        NSData *data=[[self.dic_Carry valueForKey:self.str_sectionName] dataUsingEncoding:NSUTF8StringEncoding];
+//        
+//        NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+//        
+//        
+//        if ([self.str_sectionName isEqualToString:@"projectscope"])
+//        {
+//            
+//            return 1;
+//        }
+//        else
+//        {
+//            
+//            return [sectionDetails count];
+//        }
+//
+//    } else
+//    {
+//        return 0;
+//    }
+    
+    
+    NSString *sectionTitle = [Arr_key objectAtIndex:section];
+    
+    NSError *error;
+    NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+
+    
+    if([[expansionDic valueForKey:[NSString stringWithFormat:@"%ld",section]] isEqualToString:@"YES"])
+    {
+        if(section==0)
+        {
+             return 1;
+        }
+        else
+        {
+            return [sectionDetails count];
+        }
+    }
+    else
+        return 0;
+    
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.row == 0) {
+//        ///it's the first row of any section so it would be your custom section header
+//        
+//        ///put in your code to toggle your boolean value here
+//        mybooleans[indexPath.section] = !mybooleans[indexPath.section];
+//        
+//        ///reload this section
+//        [self.tbl_View reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+//    }
+    
+    NSLog(@"i am hit");
+}
+
+
+
+
+-(void)headerClicked:(UIGestureRecognizer *)sender
+{
+    
+    if(![[expansionDic valueForKey:[NSString stringWithFormat:@"%ld",sender.view.tag]] isEqualToString:@"YES"])
+    {
+        //[sender setBackgroundImage:[UIImage imageNamed:@"top_bar"] forState:UIControlStateNormal];
+//        sender.superview.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"top_bar"]];
+        
+        [expansionDic setValue:@"YES" forKey:[NSString stringWithFormat:@"%ld",sender.view.tag]];
+        
+    }
+    else
+    {
+        [expansionDic setValue:@"NO" forKey:[NSString stringWithFormat:@"%ld",sender.view.tag]];
+        
+    }
+    
+    [self.tbl_View reloadSections:[NSIndexSet indexSetWithIndex:sender.view.tag] withRowAnimation:UITableViewRowAnimationFade];
+    
+    
+//    if (!isShowingList) {
+//        isShowingList=YES;
+//       
+//        UILabel *lbl = (UILabel*)sender.view;
+//        NSLog(@"header name : %@",lbl.text);
+//        self.str_sectionName=lbl.text;
+////         [self.tbl_View reloadData];
+//        
+//        [self.tbl_View reloadSections:[NSIndexSet indexSetWithIndex:lbl.tag] withRowAnimation:UITableViewRowAnimationFade];
+//        
+//    }else{
+//        
+//        isShowingList=NO;
+//        
+//        UILabel *lbl = (UILabel*)sender.view;
+//        NSLog(@"header name : %@",lbl.text);
+//        
+//        [self.tbl_View reloadSections:[NSIndexSet indexSetWithIndex:lbl.tag] withRowAnimation:UITableViewRowAnimationFade];
+//        
+//   //     [self.tbl_View reloadData];
+//    }
+    
+    
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

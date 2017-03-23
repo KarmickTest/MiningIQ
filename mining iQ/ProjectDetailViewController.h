@@ -7,13 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProjectDetailTableViewCell.h"
+
 
 @interface ProjectDetailViewController : UIViewController
 {
-    ProjectDetailTableViewCell *cell;
+   
     UIView *spinnerView;
     UIActivityIndicatorView *spinner;
+    
+    
+    NSMutableArray *mArr_test;
+    NSArray *Arr_key;
+    
+    BOOL isShowingList;
 
 }
 
@@ -33,7 +39,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbl_CapitalValue;
 @property (strong, nonatomic) IBOutlet UILabel *lbl_MineralName;
 
-
+@property (nonatomic, strong) NSDictionary *dic_Carry;
 @property (nonatomic,strong) NSString *strID_Carry;
+
+@property (nonatomic, strong) NSMutableArray *isShowingList;
+@property (nonatomic, strong) NSString *str_sectionName;
 
 @end

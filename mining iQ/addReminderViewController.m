@@ -33,6 +33,8 @@
     
     _textView_Description.text = @"Description";
     _textView_Description.textColor=[UIColor lightGrayColor];
+    self.str_Project_ID=@"";
+    self.str_Date=@"";
 
     
     // =========== Adding spinner ==============
