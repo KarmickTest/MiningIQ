@@ -278,7 +278,8 @@
 -(void)ProjectInfo:(UIButton *)sender
 {
     ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
-    projdetVC.strID_Carry = [[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]   ;
+   // projdetVC.strID_Carry = [[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"];
+    projdetVC.dic_Carry=[projectOfinterArray objectAtIndex:sender.tag];
     [self.navigationController pushViewController:projdetVC animated:YES];
 
 }
@@ -289,12 +290,12 @@
     // index = 1234;
     
    // http://karmickdev.com/miningiq/Api/deleteprojectofinterest?userid=2311&projectid=366
-    NSLog(@"%@",[[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]);
+    NSLog(@"%@",[[projectOfinterArray objectAtIndex:sender.tag] valueForKey:@"projectid"]);
     
     spinnerView.hidden = NO;
     NSString *userId= @"2311`";
-    // NSString *userId= [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"]
-    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&projectid=%@",userId,[[projectOfinterArray objectAtIndex:sender.tag] objectForKey:@"projectid"]];
+   // NSString *userId= [[NSUserDefaults standardUserDefaults] valueForKey:@"user_id"];
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&projectid=%@",userId,[[projectOfinterArray objectAtIndex:sender.tag] valueForKey:@"projectid"]];
     
     NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,deleteProjectOfInterest];
     
@@ -319,10 +320,18 @@
                                            //What we write here????????**
                                             
                                             
-                                            start = @"0";
-                                            limit = @"8";
-                                            [self getAllInterProjectListing:start limitVal:limit];
-
+//                                            start = @"0";
+//                                            limit = @"8";
+//                                            [self getAllInterProjectListing:start limitVal:limit];
+                                            
+                                            
+                                            [self.Project_TableView beginUpdates];
+                                            NSArray *insertIndexpath=[[NSArray alloc]initWithObjects:[NSIndexPath indexPathForRow:sender.tag inSection:0], nil];
+                                            [self.Project_TableView deleteRowsAtIndexPaths:insertIndexpath withRowAnimation:UITableViewRowAnimationFade];
+                                            [projectOfinterArray removeObjectAtIndex:sender.tag];
+                                            [self.Project_TableView endUpdates];
+                                            
+//
                                             // call method whatever u need
                                         }];
 //            UIAlertAction* noButton = [UIAlertAction

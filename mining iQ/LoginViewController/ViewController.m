@@ -11,6 +11,8 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 #import <CoreData/CoreData.h>
+#import "Reachability.h"
+
 @interface ViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 {
     BOOL showPwdBool;
@@ -82,7 +84,7 @@
     temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     _arr_ProjectDetails = [temArray mutableCopy];
     
-
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%lu",(unsigned long)_arr_ProjectDetails.count ] forKey:@"limit"];
     
     
 }
@@ -144,12 +146,58 @@
     {
         self.loginBtn.userInteractionEnabled = NO;
         [self sendLoginDataInPost];
+        [self startTimedTask];
     }
     
     
 //    DashBoardViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DashBoardViewController"];
 //    [self.navigationController pushViewController:dashBoard animated:YES];
 }
+
+
+- (void)startTimedTask
+{
+    NSTimer *SecondTimer = [NSTimer scheduledTimerWithTimeInterval:300.0 target:self selector:@selector(performBackgroundTask) userInfo:nil repeats:YES];
+}
+
+- (void)performBackgroundTask
+{
+    
+        if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+        {
+            //connection unavailable
+        }
+        else
+        {
+            //connection available
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                //Do background work
+                
+                //loading all projetlist start
+                NSMutableArray* temArray = [[NSMutableArray alloc] init];
+                NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+                [fetchRequest setReturnsObjectsAsFaults:NO];
+                temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                _arr_ProjectDetails = [temArray mutableCopy];
+                
+                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%lu",(unsigned long)_arr_ProjectDetails.count ] forKey:@"limit"];
+                [self getAllProjects];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //Update UI
+                    
+                    
+                });
+            });
+
+        }
+    
+   }
+
+
+
 
 -(void)sendLoginDataInPost
 {
@@ -174,6 +222,7 @@
             
             
           //  NSLog(@"*******%lu", (unsigned long)self.arr_ProjectDetails.count);
+            [[NSUserDefaults standardUserDefaults] setValue:[[testResult valueForKey:@"details"] valueForKey:@"total_projects"] forKey:@"total_projects"];
             
             
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
@@ -183,6 +232,8 @@
                 // Example:
                 // NSString *result = [anObject calculateSomething];
                 
+                
+            //    [self getAllProjects];
                 if(_arr_ProjectDetails.count == 0){
                     [self getAllProjects];
                 }
@@ -191,6 +242,8 @@
                     // Update UI
                     // Example:
                     // self.myLabel.text = result;
+                    
+                    [[Singelton getInstance] saveDefaults:testResult];
                     
                     [[NSUserDefaults standardUserDefaults] setValue:[[testResult valueForKey:@"details"] valueForKey:@"user_id"] forKey:@"user_id"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -215,6 +268,8 @@
                     temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
                     _arr_ProjectDetails = [temArray mutableCopy];
                     
+                    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%lu",(unsigned long)_arr_ProjectDetails.count ] forKey:@"limit"];
+                    
                     
                 });
             });
@@ -233,8 +288,13 @@
 }
 -(void)getAllProjects
 {
+    
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"limit"]);
+    
     spinnerView.hidden = NO;
-    NSString *postUrlString=[NSString stringWithFormat:@"userid=2311&limit_start=0&num_records=500&datetime=%@&localtimezone=%@",@"",@"",nil];
+  //  NSString *userId=@"2311";
+    NSString *userId= [[NSUserDefaults standardUserDefaults] valueForKey:@"user_id"];
+    NSString *postUrlString=[NSString stringWithFormat:@"userid=%@&limit_start=%@&num_records=200&datetime=%@&localtimezone=%@",userId,[[NSUserDefaults standardUserDefaults] valueForKey:@"limit"],@"",@"",nil];
     
     NSLog(@"url is : %@",postUrlString);
     // getallProjects
@@ -248,10 +308,15 @@
         {
             spinnerView.hidden = YES;
             
-            if(_arr_ProjectDetails.count == 0){
+           // if(_arr_ProjectDetails.count == 0)
+            if([[testResult valueForKey:@"details"] count] > 0){
                 
-                _arr_ProjectDetails=[[testResult valueForKey:@"details"] mutableCopy];
-                [self saveDataInCoreData:_arr_ProjectDetails];
+               // _arr_ProjectDetails=[[testResult valueForKey:@"details"] mutableCopy];
+                NSMutableArray *newArr_projectDetails=[[NSMutableArray alloc]init];
+                newArr_projectDetails=[[testResult valueForKey:@"details"] mutableCopy];
+                [self saveDataInCoreData:newArr_projectDetails];
+                
+               // [self saveDataInCoreData:_arr_ProjectDetails];
             }
             
             
@@ -279,6 +344,7 @@
     NSLog(@"****%lu",(unsigned long)arrayOfData.count);
     
     for(int i=0; i<arrayOfData.count; i++){
+        
         
         NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"ProjectListWithType" inManagedObjectContext:context];
         

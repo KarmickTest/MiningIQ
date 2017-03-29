@@ -9,6 +9,7 @@
 #import "ProjectDetailViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import <CoreData/CoreData.h>
 
 #import "ProjectDetailTableViewCell.h"
 #import "ProjectDetailCommentaryCell.h"
@@ -79,14 +80,27 @@
     
     
     
-    mArr_test=[[NSMutableArray alloc]init];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectscope"]];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"commentary"]];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"reminders"]];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"mineowners"]];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectsuppliers"]];
-    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectengineers"]];
+//    mArr_test=[[NSMutableArray alloc]init];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectscope"]];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"commentary"]];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"reminders"]];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"mineowners"]];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectsuppliers"]];
+//    [mArr_test addObject:[self.dic_Carry valueForKey:@"projectengineers"]];
     
+    
+    // ===== ===== =================
+    
+    //loading all projetlist start
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectListWithType"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    NSArray *arr_temp_details = [temArray mutableCopy];
+
+    
+    // ================ ========================= =============
     
    // Arr_key = [[self.dic_Carry allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     Arr_key=[[NSArray alloc]initWithObjects:@"projectscope",@"commentary",@"reminders",@"mineowners",@"projectsuppliers",@"projectengineers", nil];
@@ -98,10 +112,55 @@
 //        [self.isShowingList addObject:[NSNumber numberWithBool:NO]];
 //    }
     
+    
+    if (strID_Carry.length > 0)
+    {
+        for (NSDictionary *dic_id in arr_temp_details)
+        {
+            if ([[dic_id valueForKey:@"projectid"] isEqualToString:strID_Carry])
+            {
+                self.dic_Carry=dic_id;
+            }
+        }
+        
+        if (self.dic_Carry.count >0)
+        {
+            self.tbl_View.delegate=self;
+            self.tbl_View.dataSource=self;
+            [self.tbl_View reloadData];
+
+        }
+        else
+        {
+            [self getAllProjectDetailsListing];
+        }
+        
+        
+    }
+    else{
+        self.tbl_View.delegate=self;
+        self.tbl_View.dataSource=self;
+        [self.tbl_View reloadData];
+    }
+    
+    
+    
+    [expansionDic setValue:@"YES" forKey:@"0"];
+    
 }
 
 - (IBAction)backTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
 }
 
 
@@ -118,7 +177,7 @@
     
     
     spinnerView.hidden = NO;
-    NSString *postUrlString=[NSString stringWithFormat:@"projectid=%@",strID_Carry];
+    NSString *postUrlString=[NSString stringWithFormat:@"projectid=%@,userid=%@",strID_Carry,[[NSUserDefaults standardUserDefaults] valueForKey:@"user_id"]];
     NSString *strLoginApi=[NSString stringWithFormat:@"%@%@",App_Domain_Url,ProjectDetails];
     
     [[Singelton getInstance] jsonParseWithPostMethod:^(NSDictionary* testResult){
@@ -127,54 +186,58 @@
         if ([[testResult valueForKey:@"success"] boolValue] == 1)
         {
             spinnerView.hidden = YES;
-            contentArr = [[testResult objectForKey:@"details"] mutableCopy];
+           // contentArr = [[testResult objectForKey:@"details"] mutableCopy];
+            self.dic_Carry=[[testResult valueForKey:@"details"] objectAtIndex:0];
             NSArray *arr=[testResult objectForKey:@"details"];
             
             
             
-            self.lbl_ProjectName.text=[[contentArr objectAtIndex:0] valueForKey:@"projectname"];
-            
-            NSString *myString =[[contentArr objectAtIndex:0] valueForKey:@"created"];
-            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-            NSDate *yourDate = [dateFormatter dateFromString:myString];
-            dateFormatter.dateFormat = @"MMM-yyyy";
-            NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
-            self.lbl_Date.text=[NSString stringWithFormat:@"%@ : %@",@"Date",[dateFormatter stringFromDate:yourDate]];
-            
-
-            self.lbl_LocationContinent.text=[[contentArr objectAtIndex:0] valueForKey:@"continentname"];
-            self.lbl_Region.text=[[contentArr objectAtIndex:0] valueForKey:@"regionname"];
-            self.lbl_Province.text=[[contentArr objectAtIndex:0] valueForKey:@"provincename"];
-            
-            if ([[[contentArr objectAtIndex:0] valueForKey:@"citiesname"]isEqual:[NSNull null]] || [[[contentArr objectAtIndex:0] valueForKey:@"citiesname"] isEqualToString:@""]) {
-                self.lbl_City.text=@"N/A";
-            } else {
-                self.lbl_City.text=[[contentArr objectAtIndex:0] valueForKey:@"citiesname"];
-            }
-            
-            self.lbl_ProjectArea.text=[[contentArr objectAtIndex:0] valueForKey:@"area"];
-            self.lbl_CapitalValue.text=[[contentArr objectAtIndex:0] valueForKey:@"cap_value"];
-            self.lbl_MineralName.text=[[contentArr objectAtIndex:0] valueForKey:@"mineralname"];
-            
-            
-            // === ======== ============= =================
-            NSString *str = [[contentArr objectAtIndex:0] valueForKey:@"projectdescription"];
-            
-            constraintSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width - 40, MAXFLOAT);
-            
-            CGRect messageRectLeft = [str boundingRectWithSize:constraintSize options:NSStringDrawingUsesFontLeading
-                                      |NSStringDrawingUsesLineFragmentOrigin|NSLineBreakByWordWrapping|NSLineBreakByCharWrapping attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans" size:12]} context:nil];
-            
-            self.headerView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 360 + 10 + 20);
-            
-            self.projectDescriptionLbl.text = str;
-            [self.projectDescriptionLbl sizeToFit];
-
-            // ============================== ============== ============
+//            self.lbl_ProjectName.text=[[contentArr objectAtIndex:0] valueForKey:@"projectname"];
+//            
+//            NSString *myString =[[contentArr objectAtIndex:0] valueForKey:@"created"];
+//            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+//            dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//            NSDate *yourDate = [dateFormatter dateFromString:myString];
+//            dateFormatter.dateFormat = @"MMM-yyyy";
+//            NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
+//            self.lbl_Date.text=[NSString stringWithFormat:@"%@ : %@",@"Date",[dateFormatter stringFromDate:yourDate]];
+//            
+//
+//            self.lbl_LocationContinent.text=[[contentArr objectAtIndex:0] valueForKey:@"continentname"];
+//            self.lbl_Region.text=[[contentArr objectAtIndex:0] valueForKey:@"regionname"];
+//            self.lbl_Province.text=[[contentArr objectAtIndex:0] valueForKey:@"provincename"];
+//            
+//            if ([[[contentArr objectAtIndex:0] valueForKey:@"citiesname"]isEqual:[NSNull null]] || [[[contentArr objectAtIndex:0] valueForKey:@"citiesname"] isEqualToString:@""]) {
+//                self.lbl_City.text=@"N/A";
+//            } else {
+//                self.lbl_City.text=[[contentArr objectAtIndex:0] valueForKey:@"citiesname"];
+//            }
+//            
+//            self.lbl_ProjectArea.text=[[contentArr objectAtIndex:0] valueForKey:@"area"];
+//            self.lbl_CapitalValue.text=[[contentArr objectAtIndex:0] valueForKey:@"cap_value"];
+//            self.lbl_MineralName.text=[[contentArr objectAtIndex:0] valueForKey:@"mineralname"];
+//            
+//            
+//            // === ======== ============= =================
+//            NSString *str = [[contentArr objectAtIndex:0] valueForKey:@"projectdescription"];
+//            
+//            constraintSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width - 40, MAXFLOAT);
+//            
+//            CGRect messageRectLeft = [str boundingRectWithSize:constraintSize options:NSStringDrawingUsesFontLeading
+//                                      |NSStringDrawingUsesLineFragmentOrigin|NSLineBreakByWordWrapping|NSLineBreakByCharWrapping attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans" size:12]} context:nil];
+//            
+//            self.headerView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 360 + 10 + 20);
+//            
+//            self.projectDescriptionLbl.text = str;
+//            [self.projectDescriptionLbl sizeToFit];
+//
+//            // ============================== ============== ============
             
             
              _tbl_View.hidden=NO;
+            self.tbl_View.delegate=self;
+            self.tbl_View.dataSource=self;
+            
             [self.tbl_View reloadData];
             NSLog(@"url is : %lu",(unsigned long)contentArr.count);
             
@@ -206,19 +269,24 @@
 {
     UIView *viewHeader = [UIView.alloc initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 28)];
     
-    UILabel *lblTitle =[UILabel.alloc initWithFrame:CGRectMake(6, 10, viewHeader.frame.size.width-12, 25)];
+    UILabel *lblTitle =[UILabel.alloc initWithFrame:CGRectMake(6, 5, viewHeader.frame.size.width-12, 25)];
     
     [lblTitle setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];//Font style
     [lblTitle setTextColor:[UIColor blackColor]];
     [lblTitle setTextAlignment:NSTextAlignmentLeft];
-    [lblTitle setBackgroundColor:[UIColor redColor]];
+    [lblTitle setBackgroundColor:[UIColor clearColor]];
     lblTitle.text=[Arr_key objectAtIndex:section];
     lblTitle.userInteractionEnabled=YES;
     lblTitle.tag = section;
     
-    viewHeader.backgroundColor=[UIColor lightGrayColor];
+    viewHeader.backgroundColor=[UIColor whiteColor];
     
     [viewHeader addSubview:lblTitle];
+    
+    UIView *view_underline=[[UIView alloc]initWithFrame:CGRectMake(0, lblTitle.frame.origin.y+lblTitle.frame.size.height+13, tableView.frame.size.width, 1)];
+    view_underline.backgroundColor=[UIColor lightGrayColor];
+    
+    [viewHeader addSubview:view_underline];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerClicked:)];
     tapGesture.cancelsTouchesInView = NO;
@@ -250,12 +318,31 @@
     
     // @"projectscope",@"",@"",@"",@"",@"projectengineers",
     
-    
-    NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
+     NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
     NSError *error;
-    NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *sectionDetails;
     
-    NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+    if (strID_Carry.length > 0)
+    {
+        // NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        sectionDetails = [self.dic_Carry valueForKey:sectionTitle];
+        
+    }
+    else
+    {
+        NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+        
+    }
+
+    
+//    NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
+//    NSError *error;
+//    NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
     
     NSLog(@"%@",sectionDetails);
     
@@ -275,23 +362,24 @@
         NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
         cell.lbl_scope_date.text=[NSString stringWithFormat:@"%@ : %@",@"Date",[dateFormatter stringFromDate:yourDate]];
         
-        
-        NSString *str = [sectionDetails valueForKey:@"projectdescription"];
-        
-        constraintSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width - 40, MAXFLOAT);
-        
-        CGRect messageRectLeft = [str boundingRectWithSize:constraintSize options:NSStringDrawingUsesFontLeading
-                                  |NSStringDrawingUsesLineFragmentOrigin|NSLineBreakByWordWrapping|NSLineBreakByCharWrapping attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans" size:12]} context:nil];
-        
-        cell.lbl_scope_description.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 10 + 35 + 10 + 21 + 10 + messageRectLeft.size.height + 10 + 360 + 10 + 20);
-        
-        cell.lbl_scope_description.text = str;
-        [cell.lbl_scope_description sizeToFit];
 
+        cell.lbl_scope_description.text=NULL_TO_NIL([sectionDetails valueForKey:@"projectdescription"]);
         
+        // ========================
         
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        
+        CGSize expectedLabelSize = [[sectionDetails valueForKey:@"projectdescription"] sizeWithFont:cell.lbl_scope_description.font constrainedToSize:maximumLabelSize lineBreakMode:cell.lbl_scope_description.lineBreakMode];
+        
+        //adjust the label the the new height.
+        CGRect newFrame = cell.lbl_scope_description.frame;
+        newFrame.size.height = expectedLabelSize.height+cell.lbl_scope_description.frame.size.height;
+        cell.lbl_scope_description.frame = newFrame;
 
-      //  cell.lbl_scope_description.text=NULL_TO_NIL([sectionDetails valueForKey:@"projectdescription"]);
+        // ======================================
+        
+        
+        
         
         cell.lbl_scope_Continent.text=NULL_TO_NIL([sectionDetails valueForKey:@"continentname"]);
         cell.lbl_scope_Region.text=NULL_TO_NIL([sectionDetails valueForKey:@"regionname"]);
@@ -314,7 +402,29 @@
     {
         ProjectDetailCommentaryCell *cell = (ProjectDetailCommentaryCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailCommentaryCell"];
         
+//        NSString * htmlString = [[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"];
+//        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
         
+        cell.lbl_commentary_Description.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"];
+        
+        // ========================
+        
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        
+        CGSize expectedLabelSize = [[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"] sizeWithFont:cell.lbl_commentary_Description.font constrainedToSize:maximumLabelSize lineBreakMode:cell.lbl_commentary_Description.lineBreakMode];
+        
+        //adjust the label the the new height.
+        CGRect newFrame = cell.lbl_commentary_Description.frame;
+        newFrame.size.height = expectedLabelSize.height+cell.lbl_commentary_Description.frame.size.height;
+        cell.lbl_commentary_Description.frame = newFrame;
+        
+        // ======================================
+
+        
+        
+        cell.lbl_commentary_Date.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"date"];
+        cell.lbl_commentary_Modified.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"modified"];
+        cell.lbl_commentary_live.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"live"];
         
         return cell;
     }
@@ -323,6 +433,28 @@
         ProjectDetailsRemindersCell *cell = (ProjectDetailsRemindersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailsRemindersCell"];
         
         
+        cell.lbl_reminders_Description.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"];
+        
+        // ========================
+        
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        
+        CGSize expectedLabelSize = [[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"] sizeWithFont:cell.lbl_reminders_Description.font constrainedToSize:maximumLabelSize lineBreakMode:cell.lbl_reminders_Description.lineBreakMode];
+        
+        //adjust the label the the new height.
+        CGRect newFrame = cell.lbl_reminders_Description.frame;
+        newFrame.size.height = expectedLabelSize.height+cell.lbl_reminders_Description.frame.size.height;
+        cell.lbl_reminders_Description.frame = newFrame;
+        
+        // ======================================
+        
+        
+        
+        cell.lbl_reminders_Name.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"name"];
+        cell.lbl_reminders_FollowUpdate.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"followupdate"];
+        cell.lbl_reminders_Modified.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"modified"];
+
+        
         
         return cell;
     }
@@ -330,7 +462,12 @@
     {
         ProjectDetailsMineownerCell *cell = (ProjectDetailsMineownerCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailsMineownerCell"];
         
-        
+        cell.lbl_mineowner_Name.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"name"];
+        cell.lbl_mineowner_Designation.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"designation"];
+        cell.lbl_mineowner_Email.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"email"];
+        cell.lbl_mineowner_Telephone.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"telephone"];
+        cell.lbl_mineowner_Fax.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"fax"];
+
         
         return cell;
     }
@@ -339,15 +476,27 @@
         ProjectDetailProjectsuppliersCell *cell = (ProjectDetailProjectsuppliersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailProjectsuppliersCell"];
         
         
+        cell.lbl_suppliers_Name.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"name"];
+        cell.lbl_suppliers_Designation.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"designation"];
+        cell.lbl_suppliers_Email.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"email"];
+        cell.lbl_suppliers_Telephone.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"telephone"];
+        cell.lbl_suppliers_Fax.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"fax"];
+       
         
-        return cell;
+       return cell;
         
     }
     else
     {
         ProjectDetailProjectengineersCell *cell = (ProjectDetailProjectengineersCell *)[tableView dequeueReusableCellWithIdentifier:@"ProjectDetailProjectengineersCell"];
         
+        cell.lbl_engineers_Name.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"name"];
+        cell.lbl_engineers_Designation.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"designation"];
+        cell.lbl_engineers_Email.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"email"];
+        cell.lbl_engineers_Telephone.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"telephone"];
+        cell.lbl_engineers_Fax.text=[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"fax"];
         
+
         
         return cell;
     }
@@ -361,15 +510,115 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *sectionTitle = [Arr_key objectAtIndex:indexPath.section];
+    
+    
+    
+    
     if ([sectionTitle isEqualToString:@"projectscope"])
     {
+        NSError *error;
+        NSArray *sectionDetails;
         
-       return 441.0f;
+        if (strID_Carry.length > 0)
+        {
+           // NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [self.dic_Carry valueForKey:sectionTitle];
+        }
+        else
+        {
+            NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+        }
+        
+        
+        
+        
+        
+        
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        CGSize labelSize = [[sectionDetails valueForKey:@"projectdescription"] sizeWithFont:cellFont constrainedToSize:maximumLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+        
+
+        
+        
+        // 441
+        
+       return (labelSize.height)/2+441;
+    }
+    else if ([sectionTitle isEqualToString:@"commentary"])
+    {
+        NSError *error;
+        NSArray *sectionDetails;
+        
+        if (strID_Carry.length > 0)
+        {
+           // NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [self.dic_Carry valueForKey:sectionTitle];
+
+        }
+        else
+        {
+            NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+
+        }
+        
+        
+        
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        CGSize labelSize = [[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"] sizeWithFont:cellFont constrainedToSize:maximumLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+        
+
+        return (labelSize.height)/2+155;
+       //  return 44.0f;
+        
+    }
+    else if ([sectionTitle isEqualToString:@"reminders"])
+    {
+        
+        NSError *error;
+        NSArray *sectionDetails;
+        
+        if (strID_Carry.length > 0)
+        {
+            // NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [self.dic_Carry valueForKey:sectionTitle];
+            
+        }
+        else
+        {
+            NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+            
+        }
+        
+        
+        CGSize maximumLabelSize = CGSizeMake(299, FLT_MAX);
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        CGSize labelSize = [[[sectionDetails objectAtIndex:indexPath.row] valueForKey:@"description"] sizeWithFont:cellFont constrainedToSize:maximumLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+        
+        
+        return (labelSize.height)/2+155;
+
+        
+    }
+    
+    else if ([sectionTitle isEqualToString:@"projectsuppliers"])
+    {
+        return 160.0f;
     }
     else
     {
         
-       return 44.0f;
+       return 160.0f;
     }
 
     return 0.0f;
@@ -410,10 +659,24 @@
     NSString *sectionTitle = [Arr_key objectAtIndex:section];
     
     NSError *error;
-    NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *sectionDetails;
     
-    NSArray *sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+    if (strID_Carry.length > 0)
+    {
+      //  NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        sectionDetails = [self.dic_Carry valueForKey:sectionTitle];
 
+    }
+    else
+    {
+        NSData *data=[[self.dic_Carry valueForKey:sectionTitle] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        sectionDetails = [NSJSONSerialization JSONObjectWithData: data options:NSJSONReadingMutableContainers error:nil];
+
+    }
+    
+   
     
     if([[expansionDic valueForKey:[NSString stringWithFormat:@"%ld",section]] isEqualToString:@"YES"])
     {

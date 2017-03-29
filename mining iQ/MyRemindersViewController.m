@@ -12,6 +12,8 @@
 #import "Singelton.h"
 #import "DefineHeader.pch"
 #import "addReminderViewController.h"
+#import "ProjectDetailViewController.h"
+
 
 @interface MyRemindersViewController (){
 
@@ -139,12 +141,16 @@
     
     
     MyRemindersCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MyRemindersCell"];
-    cell.projectLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.projectLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
     cell.dateLbl.text = [[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"created"];
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(removeReminder:) forControlEvents:UIControlEventTouchUpInside];
     cell.markAsCompletedbtn.tag = indexPath.row;
     [cell.markAsCompletedbtn addTarget:self action:@selector(markAsCompleted:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.DetailsBtn.tag = [[[newReminderListArray objectAtIndex:indexPath.row] valueForKey:@"projectid"] intValue];
+    [cell.DetailsBtn addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     if( [[[newReminderListArray objectAtIndex:indexPath.row] objectForKey:@"done"] boolValue] == 1){
     
@@ -162,19 +168,20 @@
     
     NSLog(@"%ld",(long)indexPath.row);
     
-    if(indexPath.row == 1){
-        
-        NewProjectsViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewProjectsViewController"];
-        [self.navigationController pushViewController:dashBoard animated:YES];
-        
-    }
-    else if (indexPath.row == 4){
-        
-//        MyRemindersViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MyRemindersViewController"];
-//        [self.navigationController pushViewController:RemindersView animated:YES];
-        
-        
-    }
+//    if(indexPath.row == 1){
+//        
+//        NewProjectsViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewProjectsViewController"];
+//        [self.navigationController pushViewController:dashBoard animated:YES];
+//        
+//    }
+//    else if (indexPath.row == 4){
+//        
+////        MyRemindersViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MyRemindersViewController"];
+////        [self.navigationController pushViewController:RemindersView animated:YES];
+//        
+//        
+//    }
+    
 }
 -(void)markAsCompleted:(UIButton *) sender {
     
@@ -195,6 +202,7 @@
         {
             spinnerView.hidden = YES;
             sender.userInteractionEnabled = NO;
+            sender.hidden=YES;
 //            [self getAllReminderListing:@"0" limitVal:@"50"];
         }
         else if ([[testResult valueForKey:@"success"] boolValue] == 0)
@@ -246,6 +254,22 @@
     } andString:strLoginApi andParam:postUrlString];
     
 }
+
+
+-(void)showDetails:(UIButton *)sender
+{
+    
+    ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
+     projdetVC.strID_Carry = [NSString stringWithFormat:@"%li",(long)sender.tag];
+   // projdetVC.dic_Carry=@"";
+    [self.navigationController pushViewController:projdetVC animated:YES];
+
+    
+    
+}
+
+
+
 -(UIView *)roundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
     
     if (tl || tr || bl || br)

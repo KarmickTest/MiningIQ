@@ -10,4 +10,11 @@
 
 @interface ProjectDetailsRemindersCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *lbl_reminders_Description;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_reminders_Name;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_reminders_FollowUpdate;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_reminders_Modified;
+
+
+
 @end

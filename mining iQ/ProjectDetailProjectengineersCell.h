@@ -10,4 +10,13 @@
 
 @interface ProjectDetailProjectengineersCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *lbl_engineers_Name;
+
+@property (strong, nonatomic) IBOutlet UILabel *lbl_engineers_Designation;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_engineers_Email;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_engineers_Telephone;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_engineers_Fax;
+
+
+
 @end

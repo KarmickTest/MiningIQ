@@ -204,8 +204,8 @@
 //    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"name"];
 //    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created_date"];
     
-    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"projectname"];
-    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"created"];
+    cell.projectNameLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] valueForKey:@"projectname"];
+    cell.projectDateLbl.text = [[newProjectListArray objectAtIndex:indexPath.row] valueForKey:@"created"];
 
     
     
@@ -228,7 +228,8 @@
    
     
     ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
-    projdetVC.strID_Carry = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"id"];
+   // projdetVC.strID_Carry = [[newProjectListArray objectAtIndex:indexPath.row] objectForKey:@"id"];
+    projdetVC.dic_Carry=[newProjectListArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:projdetVC animated:YES];
 }
 

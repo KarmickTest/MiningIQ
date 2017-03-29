@@ -9,6 +9,8 @@
 #import "ProjectListingUnderPhaseViewController.h"
 #import "Singelton.h"
 #import "DefineHeader.pch"
+#import "ProjectDetailViewController.h"
+
 
 @interface ProjectListingUnderPhaseViewController () <UITableViewDelegate, UITableViewDataSource>
 {
@@ -184,6 +186,16 @@
 {
     return 40.0f;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProjectDetailViewController *projdetVC= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectDetailViewController"];
+    projdetVC.strID_Carry = [[subProjectsArr objectAtIndex:indexPath.row] valueForKey:@"projectid"];
+    // projdetVC.dic_Carry=@"";
+    [self.navigationController pushViewController:projdetVC animated:YES];
+}
+
+
 
 - (IBAction)backTapped:(id)sender {
     

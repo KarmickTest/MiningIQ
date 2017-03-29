@@ -91,14 +91,6 @@
     
     
     
-//    //loading all projetlist start
-//    NSMutableArray* temArray = [[NSMutableArray alloc] init];
-//    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
-//    [fetchRequest setReturnsObjectsAsFaults:NO];
-//    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-//    _arr_ProjectDetails = [temArray mutableCopy];
-
     
     spinnerView = [[UIView alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width)/2 - 40, ([UIScreen mainScreen].bounds.size.height)/2 - 40, 80, 80)];
     spinnerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.9];
@@ -121,42 +113,55 @@
     backgroundView.hidden = YES;
 
     
+    //loading all projetlist start
+    
+    NSMutableArray* temArray = [[NSMutableArray alloc] init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    _arr_ProjectDetails = [temArray mutableCopy];
+    
+
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+    if(_arr_ProjectDetails.count == 0){
+        [self getAllProjects];
+    }
+
    
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(queue, ^{
-        // Perform async operation
-        // Call your method/function here
-        // Example:
-        // NSString *result = [anObject calculateSomething];
-        
-        if(_arr_ProjectDetails.count == 0){
-            [self getAllProjects];
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            // Update UI
-            // Example:
-            // self.myLabel.text = result;
-            
-            
-            //loading all projetlist start
-            NSMutableArray* temArray = [[NSMutableArray alloc] init];
-            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
-            [fetchRequest setReturnsObjectsAsFaults:NO];
-            temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-            _arr_ProjectDetails = [temArray mutableCopy];
-            
-            
-        });
-    });
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+//    dispatch_async(queue, ^{
+//        // Perform async operation
+//        // Call your method/function here
+//        // Example:
+//        // NSString *result = [anObject calculateSomething];
+//        
+//        if(_arr_ProjectDetails.count == 0){
+//            [self getAllProjects];
+//        }
+//        
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            // Update UI
+//            // Example:
+//            // self.myLabel.text = result;
+//            
+//            
+//            //loading all projetlist start
+//            NSMutableArray* temArray = [[NSMutableArray alloc] init];
+//            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+//            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectDetails"];
+//            [fetchRequest setReturnsObjectsAsFaults:NO];
+//            temArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//            _arr_ProjectDetails = [temArray mutableCopy];
+//            
+//            
+//        });
+//    });
 
     
     

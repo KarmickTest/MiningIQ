@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLbl;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *markAsCompletedbtn;
+@property (strong, nonatomic) IBOutlet UIButton *DetailsBtn;
 
 
 @end

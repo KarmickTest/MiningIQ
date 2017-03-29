@@ -10,4 +10,12 @@
 
 @interface ProjectDetailProjectsuppliersCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *lbl_suppliers_Name;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_suppliers_Designation;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_suppliers_Email;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_suppliers_Telephone;
+@property (strong, nonatomic) IBOutlet UILabel *lbl_suppliers_Fax;
+
+
+
 @end

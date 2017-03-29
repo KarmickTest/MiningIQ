@@ -21,7 +21,6 @@
 		5A1804D81E449245004B7356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A1804D71E449245004B7356 /* Assets.xcassets */; };
 		5A1804DB1E449245004B7356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A1804D91E449245004B7356 /* LaunchScreen.storyboard */; };
 		5A533A1F1E68399D0078A773 /* addReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A533A1E1E68399D0078A773 /* addReminderViewController.m */; };
-		5A8F677D1E483E1C005EEF8A /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F677C1E483E1C005EEF8A /* DashBoardViewController.m */; };
 		5A8F67801E48401E005EEF8A /* Singelton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F677F1E48401E005EEF8A /* Singelton.m */; };
 		5A8F67A31E489214005EEF8A /* dashBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F67A21E489214005EEF8A /* dashBoardCell.m */; };
 		5A8F67A81E48B1A6005EEF8A /* NewProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F67A71E48B1A6005EEF8A /* NewProjectsViewController.m */; };
@@ -60,6 +59,7 @@
 		840F07E51E7FEEB00066E582 /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E11E7FEEB00066E582 /* right_arrow.png */; };
 		840F07E61E7FEEB00066E582 /* left_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E21E7FEEB00066E582 /* left_arrow@2x.png */; };
 		840F07E71E7FEEB00066E582 /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F07E31E7FEEB00066E582 /* left_arrow.png */; };
+		844BDD251E8BB435007A11D9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 844BDD241E8BB435007A11D9 /* Reachability.m */; };
 		84787AE31E693142000E2A42 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE11E693142000E2A42 /* Fabric.framework */; };
 		84787AE41E693142000E2A42 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84787AE21E693142000E2A42 /* Crashlytics.framework */; };
 		848D18491E8251B600779F29 /* ProjectDetailCommentaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D18481E8251B600779F29 /* ProjectDetailCommentaryCell.m */; };
@@ -68,6 +68,7 @@
 		848D18521E8253C600779F29 /* ProjectDetailProjectsuppliersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D18511E8253C600779F29 /* ProjectDetailProjectsuppliersCell.m */; };
 		848D18551E82546000779F29 /* ProjectDetailProjectengineersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D18541E82546000779F29 /* ProjectDetailProjectengineersCell.m */; };
 		84AFFD231E4E00F200DD8726 /* RecentlyUpdatedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFFD221E4E00F200DD8726 /* RecentlyUpdatedCell.m */; };
+		84D234731E8552E4009F7A11 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D234721E8552E4009F7A11 /* DashBoardViewController.m */; };
 		84F8CA221E517D6D00DBF008 /* ProjectPhaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F8CA211E517D6D00DBF008 /* ProjectPhaseCell.m */; };
 /* End PBXBuildFile section */
 
@@ -96,8 +97,6 @@
 		5A1804E21E449FB4004B7356 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
 		5A533A1D1E68399D0078A773 /* addReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addReminderViewController.h; sourceTree = "<group>"; };
 		5A533A1E1E68399D0078A773 /* addReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addReminderViewController.m; sourceTree = "<group>"; };
-		5A8F677B1E483E1C005EEF8A /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
-		5A8F677C1E483E1C005EEF8A /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
 		5A8F677E1E48401E005EEF8A /* Singelton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singelton.h; sourceTree = "<group>"; };
 		5A8F677F1E48401E005EEF8A /* Singelton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singelton.m; sourceTree = "<group>"; };
 		5A8F67A11E489214005EEF8A /* dashBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dashBoardCell.h; sourceTree = "<group>"; };
@@ -159,6 +158,8 @@
 		840F07E11E7FEEB00066E582 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
 		840F07E21E7FEEB00066E582 /* left_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_arrow@2x.png"; sourceTree = "<group>"; };
 		840F07E31E7FEEB00066E582 /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
+		844BDD231E8BB435007A11D9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		844BDD241E8BB435007A11D9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		84607D8C1E4DFC6B0088F452 /* Global_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global_Header.h; sourceTree = "<group>"; };
 		84787AE11E693142000E2A42 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		84787AE21E693142000E2A42 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -174,6 +175,8 @@
 		848D18541E82546000779F29 /* ProjectDetailProjectengineersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailProjectengineersCell.m; sourceTree = "<group>"; };
 		84AFFD211E4E00F200DD8726 /* RecentlyUpdatedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyUpdatedCell.h; sourceTree = "<group>"; };
 		84AFFD221E4E00F200DD8726 /* RecentlyUpdatedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentlyUpdatedCell.m; sourceTree = "<group>"; };
+		84D234721E8552E4009F7A11 /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
+		84D234741E85532B009F7A11 /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		84F8CA201E517D6D00DBF008 /* ProjectPhaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectPhaseCell.h; sourceTree = "<group>"; };
 		84F8CA211E517D6D00DBF008 /* ProjectPhaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectPhaseCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +274,7 @@
 		5A1804C71E449245004B7356 /* mining iQ */ = {
 			isa = PBXGroup;
 			children = (
+				844BDD221E8BB435007A11D9 /* Reachability */,
 				84787AE11E693142000E2A42 /* Fabric.framework */,
 				84787AE21E693142000E2A42 /* Crashlytics.framework */,
 				821AE9B61E5EB0A500105AF1 /* Loader */,
@@ -516,8 +520,8 @@
 		8293AB161E49B6A70042D0C6 /* DashBoardViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5A8F677B1E483E1C005EEF8A /* DashBoardViewController.h */,
-				5A8F677C1E483E1C005EEF8A /* DashBoardViewController.m */,
+				84D234741E85532B009F7A11 /* DashBoardViewController.h */,
+				84D234721E8552E4009F7A11 /* DashBoardViewController.m */,
 			);
 			name = DashBoardViewController;
 			sourceTree = "<group>";
@@ -613,6 +617,15 @@
 				840F07E31E7FEEB00066E582 /* left_arrow.png */,
 			);
 			name = resource_image;
+			sourceTree = "<group>";
+		};
+		844BDD221E8BB435007A11D9 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				844BDD231E8BB435007A11D9 /* Reachability.h */,
+				844BDD241E8BB435007A11D9 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		84AFFD241E4E00FA00DD8726 /* RecentlyUpdatedCell */ = {
@@ -759,6 +772,7 @@
 				820E7CDC1E4DC27F00933C7E /* ProjectDetailTableViewCell.m in Sources */,
 				5A8F67A31E489214005EEF8A /* dashBoardCell.m in Sources */,
 				5A1804CD1E449245004B7356 /* AppDelegate.m in Sources */,
+				84D234731E8552E4009F7A11 /* DashBoardViewController.m in Sources */,
 				82713DF61E51B74E00AF7DCE /* InformationViewController.m in Sources */,
 				848D18491E8251B600779F29 /* ProjectDetailCommentaryCell.m in Sources */,
 				84F8CA221E517D6D00DBF008 /* ProjectPhaseCell.m in Sources */,
@@ -770,7 +784,6 @@
 				5A8F67801E48401E005EEF8A /* Singelton.m in Sources */,
 				848D184C1E82522F00779F29 /* ProjectDetailsRemindersCell.m in Sources */,
 				82713DF21E51996300AF7DCE /* ProjectPhaseViewController.m in Sources */,
-				5A8F677D1E483E1C005EEF8A /* DashBoardViewController.m in Sources */,
 				4EBF0F321E4DF0E000F71E16 /* MenuListCell.m in Sources */,
 				82F7E1EE1E5438E700CE0E5B /* ViewController.m in Sources */,
 				821AE9B91E5EB0B200105AF1 /* Loader.m in Sources */,
@@ -782,6 +795,7 @@
 				5A1804CA1E449245004B7356 /* main.m in Sources */,
 				820E3BB81E4B00400071F56F /* TextFieldTableViewCell.m in Sources */,
 				8408ED201E4B1B8B00A014F5 /* MyRemindersViewController.m in Sources */,
+				844BDD251E8BB435007A11D9 /* Reachability.m in Sources */,
 				848D18551E82546000779F29 /* ProjectDetailProjectengineersCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
