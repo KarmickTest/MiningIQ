@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
             landmarkName = "-getAllProjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-sendLoginDataInPost"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "-sendLoginDataInPost"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-sendLoginDataInPost"
             landmarkType = "7">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "-saveDataInCoreData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/RecentlyUpdatedViewController.m"
-            timestampString = "511794426.053085"
+            timestampString = "512489030.404545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/RecentlyUpdatedViewController.m"
-            timestampString = "511794426.053085"
+            timestampString = "512488610.265575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "-getAllReminderListing:limitVal:"
             landmarkType = "7">
          </BreakpointContent>
@@ -176,15 +176,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/RecentlyUpdatedViewController.m"
-            timestampString = "511794426.053085"
+            timestampString = "512488610.265575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -276,11 +276,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/RecentlyUpdatedViewController.m"
-            timestampString = "511794511.792043"
+            timestampString = "512488610.265575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -420,7 +420,7 @@
                   moduleName = "miningIQ"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/miningiQ/mining%20iQ/ProjectDetailViewController.m"
-                  timestampString = "512467636.903677"
+                  timestampString = "512479404.08756"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "384"
@@ -435,7 +435,7 @@
                   moduleName = "miningIQ"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/miningiQ/mining%20iQ/ProjectDetailViewController.m"
-                  timestampString = "512467636.905245"
+                  timestampString = "512479404.089569"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "384"
@@ -580,11 +580,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "-getAllProjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -596,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "-getAllProjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -612,45 +612,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512466896.397566"
+            timestampString = "512479402.059465"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-performBackgroundTask"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController performBackgroundTask]"
-                  moduleName = "miningIQ"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/miningiQ/mining%20iQ/LoginViewController/ViewController.m"
-                  timestampString = "512467636.939023"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "164"
-                  endingLineNumber = "164"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__39-[ViewController performBackgroundTask]_block_invoke"
-                  moduleName = "miningIQ"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/miningiQ/mining%20iQ/LoginViewController/ViewController.m"
-                  timestampString = "512467636.940633"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "164"
-                  endingLineNumber = "164"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -660,11 +628,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mining iQ/LoginViewController/ViewController.m"
-            timestampString = "512467636.646558"
+            timestampString = "512550130.337114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "-getAllProjects"
             landmarkType = "7">
          </BreakpointContent>

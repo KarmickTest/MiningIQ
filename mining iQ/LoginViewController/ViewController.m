@@ -157,7 +157,7 @@
 
 - (void)startTimedTask
 {
-    NSTimer *SecondTimer = [NSTimer scheduledTimerWithTimeInterval:300.0 target:self selector:@selector(performBackgroundTask) userInfo:nil repeats:YES];
+    NSTimer *SecondTimer = [NSTimer scheduledTimerWithTimeInterval:7200.0 target:self selector:@selector(performBackgroundTask) userInfo:nil repeats:YES];
 }
 
 - (void)performBackgroundTask
@@ -227,6 +227,7 @@
             
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
             dispatch_async(queue, ^{
+            
                 // Perform async operation
                 // Call your method/function here
                 // Example:

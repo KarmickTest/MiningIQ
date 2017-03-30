@@ -190,6 +190,9 @@
           }
     else if (Index==3){
 //        [objMenuView removeFromSuperview];
+        
+        MyRemindersViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MyRemindersViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
      
     }
     else if (Index==4){
@@ -199,20 +202,33 @@
     }
     else if (Index==5){
 //        [objMenuView removeFromSuperview];
+        
+        ProjectPhaseViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProjectPhaseViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+
      
         
     }
     else if (Index==6){
 //        [objMenuView removeFromSuperview];
+        NewProjectsViewController *dashBoard=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewProjectsViewController"];
+        [self.navigationController pushViewController:dashBoard animated:YES];
+
         
         
     }
     else if (Index==7){
 //        [objMenuView removeFromSuperview];
+        RecentlyUpdatedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RecentlyUpdatedViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+
        
     }
     else if (Index==8){
 //        [objMenuView removeFromSuperview];
+        NewsFeedViewController *RemindersView=[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsFeedViewController"];
+        [self.navigationController pushViewController:RemindersView animated:YES];
+
         
     }
     else if (Index==9)

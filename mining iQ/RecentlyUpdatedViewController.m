@@ -47,8 +47,14 @@
     spinner.color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1];
     [spinner startAnimating];
     [spinnerView addSubview:spinner];
+    
+    
+    
+    
+    
     [self.view addSubview:spinnerView];
     spinnerView.hidden = YES;
+    
     
     //loading all projetlist start
     NSMutableArray* temArray = [[NSMutableArray alloc] init];
@@ -66,6 +72,17 @@
            // NSLog(@"%@",[[newRecentlyUpdateAry objectAtIndex:0]valueForKey:@"projectname"]);
             
         }
+    }
+    
+    if (newRecentlyUpdateAry.count == 0) {
+         spinnerView.hidden = NO;
+        UILabel *lbl_message=[[UILabel alloc]initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, spinnerView.frame.origin.y+spinnerView.frame.size.height+5, 200, 21)];
+        lbl_message.text=@"Fetching data....";
+        lbl_message.textAlignment=NSTextAlignmentCenter;
+        lbl_message.textColor=[UIColor blackColor];
+       // lbl_message.backgroundColor=[UIColor redColor];
+        [self.view addSubview:lbl_message];
+
     }
 
     
@@ -161,8 +178,8 @@
 //    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"projectname"];
 //    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] objectForKey:@"datemodified"];
     
-    cell.projectNameLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"projectname"];
-    cell.dateLbl = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"modified"];
+    cell.projectNameLbl.text = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"projectname"];
+    cell.dateLbl.text = [[newRecentlyUpdateAry objectAtIndex:indexPath.row] valueForKey:@"modified"];
 
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
